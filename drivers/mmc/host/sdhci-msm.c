@@ -189,6 +189,26 @@
 /* Max load for SD Vdd-io supply */
 #define SD_VQMMC_MAX_LOAD_UA	22000
 
+/*
+ * Due to level shifter insertion, HS mode frequency is reduced to 37.5MHz
+ * but clk's driver supply 37MHz only and uses ceil ops. So vote for
+ * 37MHz to avoid picking next ceil value.
+ */
+#define LEVEL_SHIFTER_HIGH_SPEED_FREQ	37000000
+
+/* Max number of log pages */
+#define SDHCI_MSM_MAX_LOG_SZ	10
+#define sdhci_msm_log_str(host, fmt, ...)	\
+	do {	\
+		if (host->sdhci_msm_ipc_log_ctx && host->dbg_en)	\
+			ipc_log_string(host->sdhci_msm_ipc_log_ctx,	\
+					"%s: " fmt, __func__, ##__VA_ARGS__);\
+	} while (0)
+
+#define VS_CAPABILITIES_SDR_50_SUPPORT BIT(0)
+#define VS_CAPABILITIES_SDR_104_SUPPORT BIT(1)
+#define VS_CAPABILITIES_DDR_50_SUPPORT BIT(2)
+
 #define msm_host_readl(msm_host, host, offset) \
 	msm_host->var_ops->msm_readl_relaxed(host, offset)
 
@@ -1606,6 +1626,7 @@ static int sdhci_msm_dt_parse_vreg_info(struct device *dev,
 	snprintf(prop_name, MAX_PROP_SIZE, "%s-supply", vreg_name);
 	if (!of_parse_phandle(np, prop_name, 0)) {
 		dev_info(dev, "No vreg data found for %s\n", vreg_name);
+		ret = -ENOENT;
 		return ret;
 	}
 
@@ -1672,6 +1693,122 @@ static int sdhci_msm_set_pincfg(struct sdhci_msm_host *msm_host, bool level)
 		ret = pinctrl_pm_select_sleep_state(&pdev->dev);
 
 	return ret;
+}
+
+static int sdhci_msm_dt_parse_hsr_info(struct device *dev,
+		struct sdhci_msm_host *msm_host)
+
+{
+	u32 *dll_hsr_table = NULL;
+	int dll_hsr_table_len, dll_hsr_reg_count;
+	int ret = 0;
+
+	if (sdhci_msm_dt_get_array(dev, "qcom,dll-hsr-list",
+			&dll_hsr_table, &dll_hsr_table_len, 0))
+		goto skip_hsr;
+
+	dll_hsr_reg_count = sizeof(struct sdhci_msm_dll_hsr) / sizeof(u32);
+	if (dll_hsr_table_len != dll_hsr_reg_count) {
+		dev_err(dev, "Number of HSR entries are not matching\n");
+		ret = -EINVAL;
+	} else {
+		msm_host->dll_hsr = (struct sdhci_msm_dll_hsr *)dll_hsr_table;
+	}
+
+skip_hsr:
+	if (!msm_host->dll_hsr)
+		dev_info(dev, "Failed to get dll hsr settings from dt\n");
+	return ret;
+}
+
+static int sdhci_msm_parse_reset_data(struct device *dev,
+			struct sdhci_msm_host *msm_host)
+{
+	int ret = 0;
+
+	msm_host->core_reset = devm_reset_control_get(dev,
+					"core_reset");
+	if (IS_ERR(msm_host->core_reset)) {
+		ret = PTR_ERR(msm_host->core_reset);
+		dev_err(dev, "core_reset unavailable,err = %d\n",
+				ret);
+		msm_host->core_reset = NULL;
+	}
+
+	return ret;
+}
+
+/* Parse platform data */
+static bool sdhci_msm_populate_pdata(struct device *dev,
+						struct sdhci_msm_host *msm_host)
+{
+	struct device_node *np = dev->of_node;
+	int ice_clk_table_len;
+	u32 *ice_clk_table = NULL;
+
+	msm_host->vreg_data = devm_kzalloc(dev, sizeof(struct
+						    sdhci_msm_vreg_data),
+					GFP_KERNEL);
+	if (!msm_host->vreg_data) {
+		dev_err(dev, "failed to allocate memory for vreg data\n");
+		goto out;
+	}
+
+	if (sdhci_msm_dt_parse_vreg_info(dev, &msm_host->vreg_data->vdd_data,
+					 "vdd")) {
+		dev_err(dev, "failed parsing vdd data\n");
+		goto out;
+	}
+	if (sdhci_msm_dt_parse_vreg_info(dev,
+					 &msm_host->vreg_data->vdd_io_data,
+					 "vdd-io")) {
+		dev_err(dev, "failed parsing vdd-io data\n");
+		goto out;
+	}
+
+	if (of_get_property(np, "qcom,core_3_0v_support", NULL))
+		msm_host->fake_core_3_0v_support = true;
+
+	msm_host->regs_restore.is_supported =
+		of_property_read_bool(np, "qcom,restore-after-cx-collapse");
+
+	msm_host->uses_level_shifter =
+		of_property_read_bool(np, "qcom,uses_level_shifter");
+
+	msm_host->dll_lock_bist_fail_wa =
+		of_property_read_bool(np, "qcom,dll_lock_bist_fail_wa");
+
+	if (sdhci_msm_dt_parse_hsr_info(dev, msm_host))
+		goto out;
+
+	if (!sdhci_msm_dt_get_array(dev, "qcom,ice-clk-rates",
+			&ice_clk_table, &ice_clk_table_len, 0)) {
+		if (ice_clk_table && ice_clk_table_len) {
+			if (ice_clk_table_len != 2) {
+				dev_err(dev, "Need max and min frequencies\n");
+				goto out;
+			}
+			msm_host->sup_ice_clk_table = ice_clk_table;
+			msm_host->sup_ice_clk_cnt = ice_clk_table_len;
+			msm_host->ice_clk_max = msm_host->sup_ice_clk_table[0];
+			msm_host->ice_clk_min = msm_host->sup_ice_clk_table[1];
+			dev_dbg(dev, "ICE clock rates (Hz): max: %u min: %u\n",
+				msm_host->ice_clk_max, msm_host->ice_clk_min);
+		}
+	}
+
+	msm_host->vbias_skip_wa =
+		of_property_read_bool(np, "qcom,vbias-skip-wa");
+
+	sdhci_msm_parse_reset_data(dev, msm_host);
+
+#if IS_ENABLED(CONFIG_MMC_SDHCI_MSM_SCALING)
+	sdhci_msm_scale_parse_dt(dev, msm_host);
+#endif
+
+	return false;
+out:
+	return true;
 }
 
 static void msm_config_vmmc_regulator(struct mmc_host *mmc, bool hpm)
