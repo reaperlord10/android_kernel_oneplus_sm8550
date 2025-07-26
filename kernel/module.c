@@ -1440,6 +1440,21 @@ static const struct kernel_symbol *resolve_symbol(struct module *mod,
 		goto getname;
 	}
 
+	/*
+	 * ANDROID: GKI:
+	 * In case of an unsigned module symbol resolves only if:
+	 * 1. Symbol is in the list of unprotected symbol list OR
+	 * 2. If symbol owner is not NULL i.e. owner is another module;
+	 *    it has to be an unsigned module and not signed GKI module
+	 *    to protect symbols exported by signed GKI modules.
+	 */
+	if (!mod->sig_ok &&
+	    !gki_is_module_unprotected_symbol(name) &&
+	    fsa.owner && fsa.owner->sig_ok) {
+		fsa.sym = ERR_PTR(-EACCES);
+		goto getname;
+	}
+
 	err = ref_module(mod, fsa.owner);
 	if (err) {
 		fsa.sym = ERR_PTR(err);
@@ -2276,9 +2291,9 @@ static int verify_exported_symbols(struct module *mod)
 				.gplok	= true,
 			};
 
-			if (!mod->sig_ok && gki_is_module_exported_symbol(
-						    kernel_symbol_name(s))) {
-				pr_err("%s: exporting protected symbol(%s)\n",
+			if (!mod->sig_ok && gki_is_module_protected_export(
+						kernel_symbol_name(s))) {
+				pr_err("%s: exports protected symbol %s\n",
 				       mod->name, kernel_symbol_name(s));
 				return -EACCES;
 			}
@@ -2350,13 +2365,6 @@ static int simplify_symbols(struct module *mod, const struct load_info *info)
 			break;
 
 		case SHN_UNDEF:
-			if (!mod->sig_ok &&
-			    gki_is_module_protected_symbol(name)) {
-				pr_err("%s: is not an Android GKI signed module. It can not access protected symbol: %s\n",
-				       mod->name, name);
-				return -EACCES;
-			}
-
 			ksym = resolve_symbol_wait(mod, info, name);
 			/* Ok if resolved.  */
 			if (ksym && !IS_ERR(ksym)) {
@@ -2370,9 +2378,15 @@ static int simplify_symbols(struct module *mod, const struct load_info *info)
 			     ignore_undef_symbol(info->hdr->e_machine, name)))
 				break;
 
-			ret = PTR_ERR(ksym) ?: -ENOENT;
-			pr_warn("%s: Unknown symbol %s (err %d)\n",
-				mod->name, name, ret);
+			if (PTR_ERR(ksym) == -EACCES) {
+				ret = -EACCES;
+				pr_warn("%s: Protected symbol: %s (err %d)\n",
+					mod->name, name, ret);
+			} else {
+				ret = PTR_ERR(ksym) ?: -ENOENT;
+				pr_warn("%s: Unknown symbol %s (err %d)\n",
+					mod->name, name, ret);
+			}
 			break;
 
 		default:

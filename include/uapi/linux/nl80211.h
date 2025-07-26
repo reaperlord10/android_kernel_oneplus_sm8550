@@ -1552,12 +1552,6 @@ enum nl80211_commands {
 	NL80211_CMD_MODIFY_LINK_STA,
 	NL80211_CMD_REMOVE_LINK_STA,
 
-	NL80211_CMD_RESERVED_DO_NOT_USE_6 = 153,
-	NL80211_CMD_RESERVED_DO_NOT_USE_7 = 154,
-	NL80211_CMD_RESERVED_DO_NOT_USE_8 = 155,
-	NL80211_CMD_RESERVED_DO_NOT_USE_9 = 156,
-	NL80211_CMD_RESERVED_DO_NOT_USE_10 = 157,
-
 	/* add new commands above here */
 
 	/* used to define NL80211_CMD_MAX below */
@@ -2742,13 +2736,6 @@ enum nl80211_commands {
  *	association request when used with NL80211_CMD_NEW_STATION). Can be set
  *	only if %NL80211_STA_FLAG_WME is set.
  *
- * @NL80211_ATTR_MAX_NUM_AKM_SUITES: U16 attribute. Indicates maximum number of
- *	AKM suites allowed for %NL80211_CMD_CONNECT, %NL80211_CMD_ASSOCIATE and
- *	%NL80211_CMD_START_AP in %NL80211_CMD_GET_WIPHY response. If this
- *	attribute is not present userspace shall consider maximum number of AKM
- *	suites allowed as %NL80211_MAX_NR_AKM_SUITES which is the legacy maximum
- *	number prior to the introduction of this attribute.
- *
  * @NL80211_ATTR_MLO_LINK_ID: A (u8) link ID for use with MLO, to be used with
  *	various commands that need a link ID to operate.
  * @NL80211_ATTR_MLO_LINKS: A nested array of links, each containing some
@@ -2759,6 +2746,13 @@ enum nl80211_commands {
  * @NL80211_ATTR_MLO_SUPPORT: Flag attribute to indicate user space supports MLO
  *	connection. Used with %NL80211_CMD_CONNECT. If this attribute is not
  *	included in NL80211_CMD_CONNECT drivers must not perform MLO connection.
+ *
+ * @NL80211_ATTR_MAX_NUM_AKM_SUITES: U16 attribute. Indicates maximum number of
+ *	AKM suites allowed for %NL80211_CMD_CONNECT, %NL80211_CMD_ASSOCIATE and
+ *	%NL80211_CMD_START_AP in %NL80211_CMD_GET_WIPHY response. If this
+ *	attribute is not present userspace shall consider maximum number of AKM
+ *	suites allowed as %NL80211_MAX_NR_AKM_SUITES which is the legacy maximum
+ *	number prior to the introduction of this attribute.
  *
  * @NL80211_ATTR_EML_CAPABILITY: EML Capability information (u16)
  * @NL80211_ATTR_MLD_CAPA_AND_OPS: MLD Capabilities and Operations (u16)
@@ -2782,12 +2776,6 @@ enum nl80211_commands {
  *	bit corresponds to the lowest 20 MHz channel. Each bit set to 1
  *	indicates that the sub-channel is punctured. Higher 16 bits are
  *	reserved.
- *
- * @NL80211_ATTR_MLD_MAC: MLD MAC address.
- * @NL80211_ATTR_MLD_REFERENCE: MLD Reference.
- * @NL80211_ATTR_MLD_LINK_IDS: nested attribute to hold MLD link-ids.
- * @NL80211_ATTR_MLD_LINK_MACS: nested attribute to hold MLD mac addrs.
- * @NL80211_ATTR_RECONFIG: whether the operation is reconfiguration or not
  *
  * @NUM_NL80211_ATTR: total number of nl80211_attrs available
  * @NL80211_ATTR_MAX: highest attribute number currently defined
@@ -3318,28 +3306,6 @@ enum nl80211_attrs {
 	NL80211_ATTR_RX_HW_TIMESTAMP,
 	NL80211_ATTR_TD_BITMAP,
 	NL80211_ATTR_PUNCT_BITMAP,
-
-	NL80211_ATTR_RESERVED_DO_NOT_USE_12 = 323,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_13 = 324,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_14 = 325,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_15 = 326,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_16 = 327,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_17 = 328,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_18 = 329,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_19 = 330,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_20 = 331,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_21 = 332,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_22 = 333,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_23 = 334,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_24 = 335,
-	NL80211_ATTR_RESERVED_DO_NOT_USE_25 = 336,
-
-	NL80211_ATTR_EHT_PUNCTURE_BITMAP = 350,
-	NL80211_ATTR_MLD_MAC,
-	NL80211_ATTR_MLD_REFERENCE,
-	NL80211_ATTR_MLD_LINK_IDS,
-	NL80211_ATTR_MLD_LINK_MACS,
-	NL80211_ATTR_RECONFIG,
 
 	/* add attributes here, update the policy in nl80211.c */
 
@@ -5081,9 +5047,6 @@ enum nl80211_bss {
 	NL80211_BSS_FREQUENCY_OFFSET,
 	NL80211_BSS_MLO_LINK_ID,
 	NL80211_BSS_MLD_ADDR,
-	NL80211_BSS_RESERVED_DO_NOT_USE_3 = 23,
-	NL80211_BSS_RESERVED_DO_NOT_USE_4 = 24,
-	NL80211_BSS_RESERVED_DO_NOT_USE_5 = 25,
 
 	/* keep last */
 	__NL80211_BSS_AFTER_LAST,
@@ -6403,11 +6366,6 @@ enum nl80211_feature_flags {
  *
  * @NL80211_EXT_FEATURE_SECURE_NAN: Device supports NAN Pairing which enables
  *	authentication, data encryption and message integrity.
- * @NL80211_EXT_FEATURE_MLO: Driver/Device support Multi-link Operation(MLO)
- *      feature.
- *
- * @NL80211_EXT_FEATURE_AUTH_TX_RANDOM_TA: Device supports randomized TA
- *	for authentication frames in @NL80211_CMD_FRAME.
  *
  * @NUM_NL80211_EXT_FEATURES: number of extended features.
  * @MAX_NL80211_EXT_FEATURES: highest extended feature index.
@@ -6477,20 +6435,15 @@ enum nl80211_ext_feature_index {
 	NL80211_EXT_FEATURE_FILS_CRYPTO_OFFLOAD,
 	NL80211_EXT_FEATURE_RADAR_BACKGROUND,
 	NL80211_EXT_FEATURE_POWERED_ADDR_CHANGE,
-	NL80211_EXT_FEATURE_AUTH_TX_RANDOM_TA,
+	/*
+	 * ANDROID CRC kabi preservation hack due to commits d7c1a9a0ed18
+	 * and 9b89495e479c.
+	 */
+#ifndef __GENKSYMS__
 	NL80211_EXT_FEATURE_PUNCT,
 	NL80211_EXT_FEATURE_SECURE_NAN,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_4 = 65,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_5 = 66,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_6 = 67,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_7 = 68,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_8 = 69,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_9 = 70,
-	NL80211_EXT_FEATURE_RESERVED_DO_NOT_USE_10 = 71,
-#ifdef CFG80211_PROP_MULTI_LINK_SUPPORT
-	NL80211_EXT_FEATURE_MLO,
-	NL80211_EXT_FEATURE_AUTH_TX_RANDOM_TA,
 #endif
+
 	/* add new features before the definition below */
 	NUM_NL80211_EXT_FEATURES,
 	MAX_NL80211_EXT_FEATURES = NUM_NL80211_EXT_FEATURES - 1

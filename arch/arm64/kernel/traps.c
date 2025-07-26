@@ -502,7 +502,6 @@ void do_el1_bti(struct pt_regs *regs, unsigned long esr)
 
 void do_el0_fpac(struct pt_regs *regs, unsigned long esr)
 {
-	trace_android_rvh_do_ptrauth_fault(regs, esr);
 	force_signal_inject(SIGILL, ILL_ILLOPN, regs->pc, esr);
 }
 
@@ -580,6 +579,15 @@ static void ctr_read_handler(unsigned int esr, struct pt_regs *regs)
 {
 	int rt = ESR_ELx_SYS64_ISS_RT(esr);
 	unsigned long val = arm64_ftr_reg_user_value(&arm64_ftr_reg_ctrel0);
+
+	if (cpus_have_const_cap(ARM64_WORKAROUND_1542419)) {
+		/* Hide DIC so that we can trap the unnecessary maintenance...*/
+		val &= ~BIT(CTR_EL0_DIC_SHIFT);
+
+		/* ... and fake IminLine to reduce the number of traps. */
+		val &= ~CTR_EL0_IminLine_MASK;
+		val |= (PAGE_SHIFT - 2) & CTR_EL0_IminLine_MASK;
+	}
 
 	pt_regs_write_reg(regs, rt, val);
 
@@ -803,6 +811,7 @@ static const char *esr_class_str[] = {
 	[ESR_ELx_EC_SVE]		= "SVE",
 	[ESR_ELx_EC_ERET]		= "ERET/ERETAA/ERETAB",
 	[ESR_ELx_EC_FPAC]		= "FPAC",
+	[ESR_ELx_EC_SME]		= "SME",
 	[ESR_ELx_EC_IMP_DEF]		= "EL3 IMP DEF",
 	[ESR_ELx_EC_IABT_LOW]		= "IABT (lower EL)",
 	[ESR_ELx_EC_IABT_CUR]		= "IABT (current EL)",

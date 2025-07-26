@@ -1,5 +1,11 @@
 [abi_symbol_list]
   avenrun
+<<<<<<< HEAD
+=======
+  kstat
+  kernel_cpustat
+  vm_event_states
+>>>>>>> aosp/android14-5.15-lts
 # required by delayacct
   set_delayacct_enabled
   __traceiter_android_vh_delayacct_set_flag
@@ -32,6 +38,7 @@
   __tracepoint_android_vh_delayacct_thrashing_start
   __tracepoint_android_vh_delayacct_thrashing_end
   __tracepoint_android_vh_should_end_madvise
+<<<<<<< HEAD
 
 # required by tran_io.ko
   __bio_try_merge_page
@@ -215,3 +222,5 @@
   mmc_start_request
   mmc_unregister_driver
   jiffies_to_clock_t
+=======
+>>>>>>> aosp/android14-5.15-lts

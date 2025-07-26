@@ -125,6 +125,8 @@
 
 #define TRCRSR_TA			BIT(12)
 
+#define TRCIDR0_QFILT				BIT(14)
+
 /*
  * Bit positions of registers that are defined above, in the sysreg.h style
  * of _MASK for multi bit fields and BIT() for single bits.

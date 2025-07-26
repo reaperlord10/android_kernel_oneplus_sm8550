@@ -5,7 +5,10 @@
 #define TRACE_INCLUDE_PATH trace/hooks
 #if !defined(_TRACE_HOOK_USER_H) || defined(TRACE_HEADER_MULTI_READ)
 #define _TRACE_HOOK_USER_H
+<<<<<<< HEAD
 #include <linux/tracepoint.h>
+=======
+>>>>>>> aosp/android14-5.15-lts
 #include <trace/hooks/vendor_hooks.h>
 
 struct user_struct;

@@ -22,7 +22,9 @@
  *  distribution for more details.
  */
 
+#ifndef __GENKSYMS__
 #include "cgroup-internal.h"
+#endif
 #include <linux/cpu.h>
 #include <linux/cpumask.h>
 #include <linux/cpuset.h>
@@ -3049,7 +3051,7 @@ static void cpuset_bind(struct cgroup_subsys_state *root_css)
  */
 static void cpuset_fork(struct task_struct *task)
 {
-	int inherit_cpus = 0;
+	bool inherit_cpus = false;
 	if (task_css_is_root(task, cpuset_cgrp_id))
 		return;
 

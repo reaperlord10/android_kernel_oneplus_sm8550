@@ -19,7 +19,6 @@
 #include <linux/list.h>
 #include <linux/log2.h>
 #include <linux/memblock.h>
-#include <linux/mem_encrypt.h>
 #include <linux/mm.h>
 #include <linux/msi.h>
 #include <linux/of.h>
@@ -28,7 +27,6 @@
 #include <linux/of_pci.h>
 #include <linux/of_platform.h>
 #include <linux/percpu.h>
-#include <linux/set_memory.h>
 #include <linux/slab.h>
 #include <linux/syscore_ops.h>
 
@@ -791,8 +789,8 @@ static struct its_vpe *its_build_vmapp_cmd(struct its_node *its,
 	its_encode_valid(cmd, desc->its_vmapp_cmd.valid);
 
 	if (!desc->its_vmapp_cmd.valid) {
-		alloc = !atomic_dec_return(&desc->its_vmapp_cmd.vpe->vmapp_count);
 		if (is_v4_1(its)) {
+			alloc = !atomic_dec_return(&desc->its_vmapp_cmd.vpe->vmapp_count);
 			its_encode_alloc(cmd, alloc);
 			/*
 			 * Unmapping a VPE is self-synchronizing on GICv4.1,
@@ -811,12 +809,12 @@ static struct its_vpe *its_build_vmapp_cmd(struct its_node *its,
 	its_encode_vpt_addr(cmd, vpt_addr);
 	its_encode_vpt_size(cmd, LPI_NRBITS - 1);
 
-	alloc = !atomic_fetch_inc(&desc->its_vmapp_cmd.vpe->vmapp_count);
-
 	if (!is_v4_1(its))
 		goto out;
 
 	vconf_addr = virt_to_phys(page_address(desc->its_vmapp_cmd.vpe->its_vm->vprop_page));
+
+	alloc = !atomic_fetch_inc(&desc->its_vmapp_cmd.vpe->vmapp_count);
 
 	its_encode_alloc(cmd, alloc);
 
@@ -2199,7 +2197,6 @@ static void gic_reset_prop_table(void *va)
 
 	/* Make sure the GIC will observe the written configuration */
 	gic_flush_dcache_to_poc(va, LPI_PROPBASE_SZ);
-	set_memory_decrypted((unsigned long)va, LPI_PROPBASE_SZ >> PAGE_SHIFT);
 }
 
 static struct page *its_allocate_prop_table(gfp_t gfp_flags)
@@ -2217,10 +2214,8 @@ static struct page *its_allocate_prop_table(gfp_t gfp_flags)
 
 static void its_free_prop_table(struct page *prop_page)
 {
-	unsigned long va = (unsigned long)page_address(prop_page);
-
-	set_memory_encrypted(va, LPI_PROPBASE_SZ >> PAGE_SHIFT);
-	free_pages(va, get_order(LPI_PROPBASE_SZ));
+	free_pages((unsigned long)page_address(prop_page),
+		   get_order(LPI_PROPBASE_SZ));
 }
 
 static bool gic_check_reserved_range(phys_addr_t addr, unsigned long size)
@@ -2413,8 +2408,6 @@ retry_baser:
 		return -ENXIO;
 	}
 
-	set_memory_decrypted((unsigned long)base,
-			     PAGE_ORDER_TO_SIZE(order) >> PAGE_SHIFT);
 	baser->order = order;
 	baser->base = base;
 	baser->psz = psz;
@@ -2550,12 +2543,8 @@ static void its_free_tables(struct its_node *its)
 
 	for (i = 0; i < GITS_BASER_NR_REGS; i++) {
 		if (its->tables[i].base) {
-			unsigned long base = (unsigned long)its->tables[i].base;
-			u32 order = its->tables[i].order;
-			u32 npages = PAGE_ORDER_TO_SIZE(order) >> PAGE_SHIFT;
-
-			set_memory_encrypted(base, npages);
-			free_pages(base, order);
+			free_pages((unsigned long)its->tables[i].base,
+				   its->tables[i].order);
 			its->tables[i].base = NULL;
 		}
 	}
@@ -2976,7 +2965,6 @@ static int its_alloc_collections(struct its_node *its)
 static struct page *its_allocate_pending_table(gfp_t gfp_flags)
 {
 	struct page *pend_page;
-	void *va;
 
 	pend_page = alloc_pages(gfp_flags | __GFP_ZERO,
 				get_order(LPI_PENDBASE_SZ));
@@ -2984,19 +2972,14 @@ static struct page *its_allocate_pending_table(gfp_t gfp_flags)
 		return NULL;
 
 	/* Make sure the GIC will observe the zero-ed page */
-	va = page_address(pend_page);
-	gic_flush_dcache_to_poc(va, LPI_PENDBASE_SZ);
-	set_memory_decrypted((unsigned long)va, LPI_PENDBASE_SZ >> PAGE_SHIFT);
+	gic_flush_dcache_to_poc(page_address(pend_page), LPI_PENDBASE_SZ);
 
 	return pend_page;
 }
 
 static void its_free_pending_table(struct page *pt)
 {
-	unsigned long va = (unsigned long)page_address(pt);
-
-	set_memory_encrypted(va, LPI_PENDBASE_SZ >> PAGE_SHIFT);
-	free_pages(va, get_order(LPI_PENDBASE_SZ));
+	free_pages((unsigned long)page_address(pt), get_order(LPI_PENDBASE_SZ));
 }
 
 /*
@@ -3326,20 +3309,14 @@ static bool its_alloc_table_entry(struct its_node *its,
 
 	/* Allocate memory for 2nd level table */
 	if (!table[idx]) {
-		void *l2addr;
-
 		page = alloc_pages_node(its->numa_node, GFP_KERNEL | __GFP_ZERO,
 					get_order(baser->psz));
 		if (!page)
 			return false;
 
-		l2addr = page_address(page);
-		set_memory_decrypted((unsigned long)l2addr,
-				     baser->psz >> PAGE_SHIFT);
-
 		/* Flush Lvl2 table to PoC if hw doesn't support coherency */
 		if (!(baser->val & GITS_BASER_SHAREABILITY_MASK))
-			gic_flush_dcache_to_poc(l2addr, baser->psz);
+			gic_flush_dcache_to_poc(page_address(page), baser->psz);
 
 		table[idx] = cpu_to_le64(page_to_phys(page) | GITS_BASER_VALID);
 
@@ -3832,13 +3809,6 @@ static int its_vpe_set_affinity(struct irq_data *d,
 	struct cpumask common, *table_mask;
 	unsigned long flags;
 	int from, cpu;
-
-	/*
-	 * Check if we're racing against a VPE being destroyed, for
-	 * which we don't want to allow a VMOVP.
-	 */
-	if (!atomic_read(&vpe->vmapp_count))
-		return -EINVAL;
 
 	/*
 	 * Changing affinity is mega expensive, so let's be as lazy as
@@ -4476,8 +4446,9 @@ static int its_vpe_init(struct its_vpe *vpe)
 	raw_spin_lock_init(&vpe->vpe_lock);
 	vpe->vpe_id = vpe_id;
 	vpe->vpt_page = vpt_page;
-	atomic_set(&vpe->vmapp_count, 0);
-	if (!gic_rdists->has_rvpeid)
+	if (gic_rdists->has_rvpeid)
+		atomic_set(&vpe->vmapp_count, 0);
+	else
 		vpe->vpe_proxy_event = -1;
 
 	return 0;
@@ -5102,8 +5073,6 @@ static int __init its_probe_one(struct resource *res,
 	its->fwnode_handle = handle;
 	its->get_msi_base = its_irq_get_msi_base;
 	its->msi_domain_flags = IRQ_DOMAIN_FLAG_MSI_REMAP;
-	set_memory_decrypted((unsigned long)its->cmd_base,
-			     ITS_CMD_QUEUE_SZ >> PAGE_SHIFT);
 
 	its_enable_quirks(its);
 
@@ -5160,8 +5129,6 @@ static int __init its_probe_one(struct resource *res,
 out_free_tables:
 	its_free_tables(its);
 out_free_cmd:
-	set_memory_encrypted((unsigned long)its->cmd_base,
-			     ITS_CMD_QUEUE_SZ >> PAGE_SHIFT);
 	free_pages((unsigned long)its->cmd_base, get_order(ITS_CMD_QUEUE_SZ));
 out_unmap_sgir:
 	if (its->sgir_base)

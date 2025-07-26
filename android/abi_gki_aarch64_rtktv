@@ -1,15 +1,27 @@
 [abi_symbol_list]
+<<<<<<< HEAD
   add_timer
   add_uevent_var
   add_wait_queue
   alloc_anon_inode
+=======
+  add_cpu
+  add_memory_subsection
+  add_timer
+  add_uevent_var
+  add_wait_queue
+  adjust_managed_page_count
+>>>>>>> aosp/android14-5.15-lts
   alloc_chrdev_region
   alloc_contig_range
   alloc_etherdev_mqs
   alloc_netdev_mqs
   __alloc_pages
   alloc_pages_exact
+<<<<<<< HEAD
   __alloc_percpu
+=======
+>>>>>>> aosp/android14-5.15-lts
   __alloc_percpu_gfp
   __alloc_skb
   alloc_workqueue
@@ -27,15 +39,26 @@
   atomic_notifier_chain_register
   atomic_notifier_chain_unregister
   autoremove_wake_function
+<<<<<<< HEAD
   bcmp
   bio_endio
   bio_end_io_acct_remapped
   bio_start_io_acct
+=======
+  balance_dirty_pages_ratelimited
+  bcmp
+  bio_add_page
+  bio_alloc_bioset
+  bio_associate_blkg
+  bio_chain
+  bio_put
+>>>>>>> aosp/android14-5.15-lts
   bitmap_allocate_region
   __bitmap_clear
   bitmap_find_next_zero_area_off
   bitmap_release_region
   __bitmap_set
+<<<<<<< HEAD
   __blk_alloc_disk
   blk_cleanup_disk
   blk_queue_flag_clear
@@ -51,12 +74,35 @@
   blocking_notifier_chain_unregister
   bpf_trace_run10
   bpf_trace_run1
+=======
+  __bitmap_weight
+  blkdev_issue_discard
+  blk_finish_plug
+  blk_start_plug
+  __blockdev_direct_IO
+  blockdev_superblock
+  blocking_notifier_call_chain
+  blocking_notifier_chain_register
+  blocking_notifier_chain_unregister
+  block_truncate_page
+  block_write_begin
+  block_write_end
+  block_write_full_page
+  bpf_trace_run1
+  bpf_trace_run10
+>>>>>>> aosp/android14-5.15-lts
   bpf_trace_run2
   bpf_trace_run3
   bpf_trace_run4
   bpf_trace_run5
   bpf_trace_run6
   bpf_trace_run7
+<<<<<<< HEAD
+=======
+  bpf_trace_run8
+  __bread_gfp
+  __brelse
+>>>>>>> aosp/android14-5.15-lts
   bus_for_each_dev
   bus_register
   bus_register_notifier
@@ -81,20 +127,34 @@
   __class_register
   class_remove_file_ns
   class_unregister
+<<<<<<< HEAD
   clear_page
   __ClearPageMovable
+=======
+  clean_bdev_aliases
+  clear_inode
+  clear_nlink
+>>>>>>> aosp/android14-5.15-lts
   clk_disable
   clk_enable
   clk_prepare
   clk_put
   clk_unprepare
+<<<<<<< HEAD
   cma_for_each_area
   cma_get_name
+=======
+  cma_alloc
+  cma_for_each_area
+  cma_get_name
+  cma_release
+>>>>>>> aosp/android14-5.15-lts
   compat_ptr_ioctl
   complete
   complete_all
   complete_and_exit
   completion_done
+<<<<<<< HEAD
   console_lock
   console_printk
   console_suspend_enabled
@@ -102,6 +162,13 @@
   __const_udelay
   consume_skb
   contig_page_data
+=======
+  console_printk
+  console_suspend_enabled
+  __const_udelay
+  consume_skb
+  copy_page_from_iter_atomic
+>>>>>>> aosp/android14-5.15-lts
   cpufreq_boost_enabled
   cpufreq_cooling_register
   cpufreq_cooling_unregister
@@ -115,10 +182,13 @@
   cpufreq_register_driver
   cpufreq_register_notifier
   cpufreq_table_index_unsorted
+<<<<<<< HEAD
   __cpuhp_remove_state
   __cpuhp_setup_state
   __cpuhp_state_add_instance
   __cpuhp_state_remove_instance
+=======
+>>>>>>> aosp/android14-5.15-lts
   cpu_hwcap_keys
   cpu_hwcaps
   cpumask_next
@@ -131,11 +201,16 @@
   cpus_read_unlock
   crc32_be
   crc32_le
+<<<<<<< HEAD
+=======
+  create_empty_buffers
+>>>>>>> aosp/android14-5.15-lts
   crypto_aead_decrypt
   crypto_aead_encrypt
   crypto_aead_setauthsize
   crypto_aead_setkey
   crypto_alloc_aead
+<<<<<<< HEAD
   crypto_alloc_base
   crypto_alloc_shash
   crypto_alloc_skcipher
@@ -143,6 +218,11 @@
   crypto_comp_decompress
   crypto_destroy_tfm
   crypto_has_alg
+=======
+  crypto_alloc_shash
+  crypto_alloc_skcipher
+  crypto_destroy_tfm
+>>>>>>> aosp/android14-5.15-lts
   __crypto_memneq
   crypto_register_alg
   crypto_shash_digest
@@ -154,7 +234,14 @@
   crypto_skcipher_encrypt
   crypto_skcipher_setkey
   __crypto_xor
+<<<<<<< HEAD
   _ctype
+=======
+  csum_partial
+  _ctype
+  current_time
+  current_umask
+>>>>>>> aosp/android14-5.15-lts
   debugfs_create_bool
   debugfs_create_dir
   debugfs_create_file
@@ -162,6 +249,7 @@
   debugfs_create_u32
   debugfs_remove
   debugfs_rename
+<<<<<<< HEAD
   dec_zone_page_state
   default_llseek
   default_wake_function
@@ -169,6 +257,14 @@
   del_gendisk
   del_timer
   del_timer_sync
+=======
+  default_llseek
+  default_wake_function
+  delayed_work_timer_fn
+  del_timer
+  del_timer_sync
+  desc_to_gpio
+>>>>>>> aosp/android14-5.15-lts
   destroy_workqueue
   dev_alloc_name
   __dev_change_net_namespace
@@ -180,7 +276,10 @@
   __dev_get_by_index
   dev_get_by_index
   device_add
+<<<<<<< HEAD
   device_add_disk
+=======
+>>>>>>> aosp/android14-5.15-lts
   device_create
   device_create_file
   device_del
@@ -200,15 +299,26 @@
   device_wakeup_enable
   _dev_info
   __dev_kfree_skb_any
+<<<<<<< HEAD
   devm_add_action
+=======
+>>>>>>> aosp/android14-5.15-lts
   devm_clk_get_optional
   devm_extcon_dev_allocate
   devm_extcon_dev_register
   devm_extcon_dev_unregister
+<<<<<<< HEAD
+=======
+  devm_gpio_request_one
+>>>>>>> aosp/android14-5.15-lts
   devm_hwrng_register
   devm_ioremap_resource
   devm_iounmap
   devm_kmalloc
+<<<<<<< HEAD
+=======
+  devm_led_classdev_register_ext
+>>>>>>> aosp/android14-5.15-lts
   devm_of_phy_get_by_index
   devm_phy_get
   devm_platform_get_and_ioremap_resource
@@ -228,12 +338,16 @@
   dev_pm_opp_init_cpufreq_table
   dev_pm_opp_of_cpumask_add_table
   dev_pm_opp_of_get_sharing_cpus
+<<<<<<< HEAD
   dev_pm_opp_of_register_em
+=======
+>>>>>>> aosp/android14-5.15-lts
   dev_pm_opp_put
   _dev_printk
   dev_queue_xmit
   dev_set_name
   _dev_warn
+<<<<<<< HEAD
   disable_irq_nosync
   disk_end_io_acct
   disk_start_io_acct
@@ -247,6 +361,26 @@
   dma_buf_vmap
   dma_buf_vunmap
   dma_contiguous_default_area
+=======
+  d_find_alias
+  d_instantiate
+  disable_irq_nosync
+  discard_new_inode
+  dma_alloc_attrs
+  dma_buf_export
+  dma_buf_fd
+  dma_buf_get
+  dma_buf_mmap
+  dmabuf_page_pool_alloc
+  dmabuf_page_pool_create
+  dmabuf_page_pool_destroy
+  dmabuf_page_pool_free
+  dmabuf_page_pool_get_size
+  dma_buf_put
+  dma_contiguous_default_area
+  dma_fence_array_ops
+  dma_fence_context_alloc
+>>>>>>> aosp/android14-5.15-lts
   dma_fence_default_wait
   dma_fence_init
   dma_fence_signal
@@ -256,7 +390,13 @@
   dma_heap_find
   dma_heap_get_dev
   dma_heap_get_drvdata
+<<<<<<< HEAD
   dma_heap_put
+=======
+  dma_heap_get_name
+  dma_heap_put
+  d_make_root
+>>>>>>> aosp/android14-5.15-lts
   dmam_alloc_attrs
   dma_map_page_attrs
   dma_map_sg_attrs
@@ -266,6 +406,11 @@
   dma_pool_create
   dma_pool_destroy
   dma_pool_free
+<<<<<<< HEAD
+=======
+  dma_resv_test_signaled
+  dma_resv_wait_timeout
+>>>>>>> aosp/android14-5.15-lts
   dma_set_coherent_mask
   dma_set_mask
   dma_sync_sg_for_cpu
@@ -274,6 +419,10 @@
   dma_sync_single_for_device
   dma_unmap_page_attrs
   dma_unmap_sg_attrs
+<<<<<<< HEAD
+=======
+  d_obtain_alias
+>>>>>>> aosp/android14-5.15-lts
   do_exit
   do_SAK
   do_trace_netlink_extack
@@ -283,15 +432,114 @@
   down_timeout
   down_trylock
   down_write
+<<<<<<< HEAD
   d_path
   driver_register
   driver_unregister
+=======
+  down_write_trylock
+  d_path
+  dput
+  driver_register
+  driver_unregister
+  drm_add_modes_noedid
+  drm_atomic_helper_check
+  drm_atomic_helper_check_plane_state
+  drm_atomic_helper_commit
+  drm_atomic_helper_connector_destroy_state
+  drm_atomic_helper_connector_duplicate_state
+  drm_atomic_helper_connector_reset
+  drm_atomic_helper_crtc_destroy_state
+  drm_atomic_helper_crtc_duplicate_state
+  drm_atomic_helper_crtc_reset
+  drm_atomic_helper_disable_plane
+  drm_atomic_helper_page_flip
+  drm_atomic_helper_plane_destroy_state
+  drm_atomic_helper_plane_duplicate_state
+  drm_atomic_helper_plane_reset
+  drm_atomic_helper_set_config
+  drm_atomic_helper_shutdown
+  drm_atomic_helper_update_plane
+  drm_compat_ioctl
+  drm_connector_attach_encoder
+  drm_connector_cleanup
+  drm_connector_init
+  drm_connector_register
+  drm_crtc_cleanup
+  drm_crtc_init_with_planes
+  drm_crtc_send_vblank_event
+  drm_crtc_vblank_get
+  drm_crtc_vblank_off
+  drm_crtc_vblank_on
+  drm_cvt_mode
+  __drm_dbg
+  drm_dev_alloc
+  drm_dev_printk
+  drm_dev_put
+  drm_dev_register
+  drm_dev_unregister
+  drm_encoder_cleanup
+  drm_encoder_init
+  __drm_err
+  drm_framebuffer_cleanup
+  drm_framebuffer_init
+  drm_gem_create_mmap_offset
+  drm_gem_fb_create
+  drm_gem_free_mmap_offset
+  drm_gem_get_pages
+  drm_gem_handle_create
+  drm_gem_handle_delete
+  drm_gem_mmap
+  drm_gem_mmap_obj
+  drm_gem_object_free
+  drm_gem_object_init
+  drm_gem_object_lookup
+  drm_gem_object_release
+  drm_gem_plane_helper_prepare_fb
+  drm_gem_prime_export
+  drm_gem_prime_fd_to_handle
+  drm_gem_prime_handle_to_fd
+  drm_gem_prime_import
+  drm_gem_private_object_init
+  drm_gem_put_pages
+  drm_gem_vm_close
+  drm_gem_vm_open
+  drm_handle_vblank
+  drm_helper_mode_fill_fb_struct
+  drm_helper_probe_single_connector_modes
+  drm_ioctl
+  drm_is_current_master
+  drmm_mode_config_init
+  drm_mode_config_cleanup
+  drm_mode_config_reset
+  drm_mode_probed_add
+  drm_mode_sort
+  drm_open
+  drm_plane_cleanup
+  drm_poll
+  drm_prime_gem_destroy
+  drm_prime_pages_to_sg
+  drm_prime_sg_to_dma_addr_array
+  drm_prime_sg_to_page_array
+  drm_read
+  drm_release
+  drm_set_preferred_mode
+  drm_universal_plane_init
+  drm_vblank_init
+  drop_nlink
+  d_splice_alias
+>>>>>>> aosp/android14-5.15-lts
   dump_stack
   ehci_init_driver
   ehci_resume
   ehci_setup
   ehci_suspend
   enable_irq
+<<<<<<< HEAD
+=======
+  enable_percpu_irq
+  end_buffer_read_sync
+>>>>>>> aosp/android14-5.15-lts
   ether_setup
   eth_mac_addr
   ethtool_op_get_link
@@ -300,11 +548,25 @@
   eth_validate_addr
   event_triggers_call
   extcon_set_state_sync
+<<<<<<< HEAD
   fb_get_options
   fb_mode_option
   __fdget
   fd_install
   filp_close
+=======
+  fault_in_iov_iter_readable
+  fd_install
+  fiemap_fill_next_extent
+  fiemap_prep
+  filemap_fdatawait_range
+  filemap_fdatawrite
+  filemap_fdatawrite_range
+  filemap_flush
+  filemap_write_and_wait_range
+  file_remove_privs
+  file_update_time
+>>>>>>> aosp/android14-5.15-lts
   _find_first_bit
   _find_next_bit
   find_pid_ns
@@ -317,6 +579,10 @@
   flush_work
   flush_workqueue
   follow_pfn
+<<<<<<< HEAD
+=======
+  fpsimd_context_busy
+>>>>>>> aosp/android14-5.15-lts
   fput
   free_contig_range
   free_irq
@@ -327,8 +593,31 @@
   free_percpu
   freezing_slow_path
   freq_qos_update_request
+<<<<<<< HEAD
   fsync_bdev
   gcd
+=======
+  fs_bio_set
+  fs_param_is_string
+  fs_param_is_u32
+  __fs_parse
+  gcd
+  generic_block_bmap
+  generic_fh_to_dentry
+  generic_fh_to_parent
+  generic_file_fsync
+  generic_file_llseek
+  generic_file_mmap
+  generic_file_open
+  generic_file_read_iter
+  generic_file_splice_read
+  __generic_file_write_iter
+  generic_fillattr
+  generic_permission
+  generic_read_dir
+  generic_write_checks
+  generic_write_end
+>>>>>>> aosp/android14-5.15-lts
   genlmsg_multicast_allns
   genlmsg_put
   genl_register_family
@@ -339,16 +628,26 @@
   gen_pool_best_fit
   gen_pool_create
   gen_pool_destroy
+<<<<<<< HEAD
+=======
+  gen_pool_dma_alloc_align
+  gen_pool_dma_zalloc_align
+>>>>>>> aosp/android14-5.15-lts
   gen_pool_for_each_chunk
   gen_pool_free_owner
   gen_pool_set_algo
   gen_pool_size
   gen_pool_virt_to_phys
+<<<<<<< HEAD
+=======
+  __getblk_gfp
+>>>>>>> aosp/android14-5.15-lts
   get_cpu_device
   __get_free_pages
   get_kernel_pages
   get_net_ns_by_fd
   get_net_ns_by_pid
+<<<<<<< HEAD
   get_pid_task
   get_random_bytes
   get_random_u32
@@ -366,6 +665,31 @@
   hrtimer_cancel
   hrtimer_init
   hrtimer_init_sleeper
+=======
+  get_random_bytes
+  get_random_u32
+  get_tree_bdev
+  get_unused_fd_flags
+  get_zeroed_page
+  gic_nonsecure_priorities
+  gpiochip_add_data_with_key
+  gpiochip_remove
+  gpiod_cansleep
+  gpiod_direction_output
+  gpiod_get_direction
+  gpiod_set_value
+  gpiod_set_value_cansleep
+  gpio_to_desc
+  grab_cache_page_write_begin
+  handle_sysrq
+  hex_asc
+  hex_dump_to_buffer
+  hex_to_bin
+  hid_open_report
+  high_memory
+  hrtimer_cancel
+  hrtimer_init
+>>>>>>> aosp/android14-5.15-lts
   hrtimer_start_range_ns
   hrtimer_try_to_cancel
   __hw_addr_init
@@ -382,12 +706,17 @@
   i2c_transfer
   i2c_transfer_buffer_flags
   i2c_verify_client
+<<<<<<< HEAD
+=======
+  I_BDEV
+>>>>>>> aosp/android14-5.15-lts
   idr_alloc
   idr_destroy
   idr_find
   idr_for_each
   idr_get_next
   idr_remove
+<<<<<<< HEAD
   ignore_console_lock_warning
   inc_zone_page_state
   in_egroup_p
@@ -397,19 +726,60 @@
   init_pseudo
   __init_rwsem
   __init_swait_queue_head
+=======
+  iget5_locked
+  iget_failed
+  ihold
+  ilookup
+  inc_nlink
+  in_egroup_p
+  inet_csk_get_port
+  init_net
+  init_on_alloc
+  __init_rwsem
+  init_special_inode
+  __init_swait_queue_head
+  init_task
+>>>>>>> aosp/android14-5.15-lts
   init_timer_key
   init_uts_ns
   init_wait_entry
   __init_waitqueue_head
+<<<<<<< HEAD
   input_allocate_device
   input_event
   input_free_device
   input_register_device
   input_unregister_device
+=======
+  inode_dio_wait
+  inode_get_bytes
+  inode_init_once
+  inode_init_owner
+  inode_needs_sync
+  inode_newsize_ok
+  inode_nohighmem
+  inode_set_bytes
+  input_allocate_device
+  input_close_device
+  input_event
+  input_free_device
+  input_open_device
+  input_register_device
+  input_register_handle
+  input_register_handler
+  input_unregister_device
+  input_unregister_handle
+  input_unregister_handler
+  insert_inode_locked
+  invalidate_bdev
+  invalidate_inode_buffers
+>>>>>>> aosp/android14-5.15-lts
   iomem_resource
   ioport_resource
   __ioremap
   iounmap
+<<<<<<< HEAD
   iput
   irq_get_irq_data
   irq_of_parse_and_map
@@ -418,21 +788,44 @@
   is_vmalloc_addr
   jiffies_64
   jiffies
+=======
+  iov_iter_revert
+  iov_iter_zero
+  iput
+  irq_get_irq_data
+  irq_of_parse_and_map
+  irq_stat
+  irq_to_desc
+  is_bad_inode
+  is_vmalloc_addr
+  iter_file_splice_write
+  jiffies
+  jiffies_64
+>>>>>>> aosp/android14-5.15-lts
   jiffies_to_msecs
   jiffies_to_usecs
   kasan_flag_enabled
   kernel_cpustat
+<<<<<<< HEAD
   kernel_param_lock
   kernel_param_unlock
   kernel_power_off
   kern_mount
   kern_unmount
+=======
+  kernel_neon_begin
+  kernel_neon_end
+  kernel_param_lock
+  kernel_param_unlock
+  kernel_power_off
+>>>>>>> aosp/android14-5.15-lts
   key_create_or_update
   key_put
   keyring_alloc
   __kfifo_alloc
   __kfifo_free
   __kfifo_in
+<<<<<<< HEAD
   __kfifo_init
   __kfifo_out
   __kfifo_to_user
@@ -441,6 +834,16 @@
   kfree_skb
   kfree_skb_list
   kill_anon_super
+=======
+  __kfifo_out
+  __kfifo_to_user
+  kfree
+  kfree_link
+  kfree_sensitive
+  kfree_skb_list
+  kfree_skb_reason
+  kill_block_super
+>>>>>>> aosp/android14-5.15-lts
   kimage_vaddr
   kimage_voffset
   __kmalloc
@@ -457,10 +860,18 @@
   kobject_create_and_add
   kobject_put
   kobject_uevent_env
+<<<<<<< HEAD
   kstrdup
   kstrtoint
   kstrtoll
   kstrtou16
+=======
+  ksize
+  kstrdup
+  kstrtobool
+  kstrtoint
+  kstrtoll
+>>>>>>> aosp/android14-5.15-lts
   kstrtou8
   kstrtouint
   kstrtoull
@@ -471,8 +882,13 @@
   kthread_should_stop
   kthread_stop
   kthread_unpark
+<<<<<<< HEAD
   ktime_get
   ktime_get_coarse_real_ts64
+=======
+  ktime_add_safe
+  ktime_get
+>>>>>>> aosp/android14-5.15-lts
   ktime_get_coarse_with_offset
   ktime_get_mono_fast_ns
   ktime_get_real_ts64
@@ -483,9 +899,25 @@
   kvmalloc_node
   __list_add_valid
   __list_del_entry_valid
+<<<<<<< HEAD
   __local_bh_enable_ip
   __lock_page
   memblock_end_of_DRAM
+=======
+  ll_rw_block
+  load_nls
+  load_nls_default
+  __local_bh_enable_ip
+  __lock_buffer
+  __lock_page
+  lockref_get
+  logfc
+  make_bad_inode
+  mark_buffer_dirty
+  __mark_inode_dirty
+  memblock_end_of_DRAM
+  memblock_free
+>>>>>>> aosp/android14-5.15-lts
   memchr
   memcmp
   memcpy
@@ -496,7 +928,10 @@
   memparse
   memremap
   mem_section
+<<<<<<< HEAD
   memset64
+=======
+>>>>>>> aosp/android14-5.15-lts
   memset
   __memset_io
   memstart_addr
@@ -522,7 +957,13 @@
   mod_delayed_work_on
   mod_timer
   module_layout
+<<<<<<< HEAD
   module_put
+=======
+  mpage_readahead
+  mpage_readpage
+  mpage_writepages
+>>>>>>> aosp/android14-5.15-lts
   mpi_alloc
   mpi_cmp
   mpi_cmp_ui
@@ -538,7 +979,13 @@
   mutex_is_locked
   mutex_lock
   mutex_lock_interruptible
+<<<<<<< HEAD
   mutex_unlock
+=======
+  mutex_trylock
+  mutex_unlock
+  names_cachep
+>>>>>>> aosp/android14-5.15-lts
   name_to_dev_t
   napi_complete_done
   napi_disable
@@ -569,16 +1016,32 @@
   netlink_unregister_notifier
   net_ns_type_operations
   net_ratelimit
+<<<<<<< HEAD
   nla_find
   nla_memcpy
   __nla_parse
   nla_put_64bit
   nla_put
+=======
+  new_inode
+  nla_find
+  nla_memcpy
+  __nla_parse
+  nla_put
+  nla_put_64bit
+>>>>>>> aosp/android14-5.15-lts
   nla_reserve
   __nla_validate
   no_llseek
   nonseekable_open
+<<<<<<< HEAD
   nr_cpu_ids
+=======
+  noop_backing_dev_info
+  noop_llseek
+  nr_cpu_ids
+  nr_ipi_get
+>>>>>>> aosp/android14-5.15-lts
   nr_irqs
   ns_to_kernel_old_timeval
   __num_online_cpus
@@ -591,16 +1054,24 @@
   of_find_node_by_name
   of_find_node_opts_by_path
   of_find_property
+<<<<<<< HEAD
   of_fwnode_ops
   __of_get_address
   of_get_child_by_name
   of_get_named_gpio_flags
+=======
+  __of_get_address
+  of_get_child_by_name
+>>>>>>> aosp/android14-5.15-lts
   of_get_next_child
   of_get_property
   of_iomap
   of_irq_get_byname
   of_match_device
+<<<<<<< HEAD
   of_match_node
+=======
+>>>>>>> aosp/android14-5.15-lts
   of_parse_phandle
   of_platform_depopulate
   of_platform_populate
@@ -612,8 +1083,18 @@
   of_property_read_variable_u64_array
   of_prop_next_u32
   oops_in_progress
+<<<<<<< HEAD
   page_endio
   page_mapping
+=======
+  overflowgid
+  overflowuid
+  pagecache_get_page
+  pagecache_write_begin
+  pagecache_write_end
+  page_pinner_inited
+  __page_pinner_put_page
+>>>>>>> aosp/android14-5.15-lts
   panic
   panic_notifier_list
   panic_timeout
@@ -622,9 +1103,16 @@
   param_ops_bool
   param_ops_charp
   param_ops_int
+<<<<<<< HEAD
   param_ops_uint
   param_ops_ulong
   pci_bus_type
+=======
+  param_ops_string
+  param_ops_uint
+  param_ops_ulong
+  pci_choose_state
+>>>>>>> aosp/android14-5.15-lts
   __per_cpu_offset
   perf_trace_buf_alloc
   perf_trace_run_bpf_submit
@@ -649,7 +1137,10 @@
   platform_get_irq
   platform_get_resource
   pm_power_off
+<<<<<<< HEAD
   __pm_relax
+=======
+>>>>>>> aosp/android14-5.15-lts
   __pm_runtime_disable
   pm_runtime_enable
   pm_runtime_forbid
@@ -660,6 +1151,10 @@
   pm_schedule_suspend
   __pm_stay_awake
   policy_has_boost_freq
+<<<<<<< HEAD
+=======
+  posix_acl_chmod
+>>>>>>> aosp/android14-5.15-lts
   power_supply_changed
   power_supply_register
   power_supply_unregister
@@ -671,7 +1166,10 @@
   print_hex_dump
   _printk
   proc_create
+<<<<<<< HEAD
   proc_create_seq_private
+=======
+>>>>>>> aosp/android14-5.15-lts
   proc_dointvec
   proc_mkdir
   proc_remove
@@ -697,6 +1195,12 @@
   radix_tree_tag_get
   radix_tree_tag_set
   ___ratelimit
+<<<<<<< HEAD
+=======
+  raw_notifier_call_chain
+  raw_notifier_chain_register
+  raw_notifier_chain_unregister
+>>>>>>> aosp/android14-5.15-lts
   _raw_read_lock
   _raw_read_lock_irqsave
   _raw_read_unlock
@@ -715,19 +1219,35 @@
   _raw_write_unlock
   _raw_write_unlock_irqrestore
   rb_erase
+<<<<<<< HEAD
   rb_insert_color
+=======
+  rb_first
+  rb_insert_color
+  rb_last
+>>>>>>> aosp/android14-5.15-lts
   rb_next
   rb_prev
   rcu_barrier
   __rcu_read_lock
   __rcu_read_unlock
+<<<<<<< HEAD
   refcount_warn_saturate
   __refrigerator
   __register_blkdev
+=======
+  read_cache_page
+  refcount_warn_saturate
+  __refrigerator
+>>>>>>> aosp/android14-5.15-lts
   __register_chrdev
   register_chrdev_region
   register_console
   register_die_notifier
+<<<<<<< HEAD
+=======
+  register_filesystem
+>>>>>>> aosp/android14-5.15-lts
   register_inet6addr_notifier
   register_inetaddr_notifier
   register_kprobe
@@ -739,7 +1259,10 @@
   register_pm_notifier
   register_reboot_notifier
   register_restart_handler
+<<<<<<< HEAD
   register_shrinker
+=======
+>>>>>>> aosp/android14-5.15-lts
   register_syscore_ops
   register_sysctl_table
   regulator_bulk_disable
@@ -750,11 +1273,19 @@
   __release_region
   release_resource
   remap_pfn_range
+<<<<<<< HEAD
+=======
+  remove_cpu
+>>>>>>> aosp/android14-5.15-lts
   remove_proc_entry
   remove_wait_queue
   request_firmware
   request_firmware_nowait
+<<<<<<< HEAD
   __request_module
+=======
+  __request_percpu_irq
+>>>>>>> aosp/android14-5.15-lts
   __request_region
   request_threaded_irq
   reset_control_assert
@@ -779,11 +1310,20 @@
   rtnl_is_locked
   rtnl_lock
   rtnl_unlock
+<<<<<<< HEAD
+=======
+  sb800_prefetch
+  sb_set_blocksize
+>>>>>>> aosp/android14-5.15-lts
   sched_clock
   sched_setscheduler
   sched_setscheduler_nocheck
   schedule
   schedule_timeout
+<<<<<<< HEAD
+=======
+  schedule_timeout_uninterruptible
+>>>>>>> aosp/android14-5.15-lts
   scnprintf
   send_sig_info
   send_sig_mceerr
@@ -791,10 +1331,21 @@
   seq_printf
   seq_puts
   seq_read
+<<<<<<< HEAD
   set_capacity
   set_capacity_and_notify
   set_freezable
   __SetPageMovable
+=======
+  seq_vprintf
+  setattr_copy
+  setattr_prepare
+  set_bh_page
+  set_freezable
+  set_nlink
+  set_page_dirty
+  __set_page_dirty_buffers
+>>>>>>> aosp/android14-5.15-lts
   sg_alloc_table
   sg_alloc_table_from_pages_segment
   sg_free_table
@@ -803,6 +1354,10 @@
   sg_next
   __sg_page_iter_next
   __sg_page_iter_start
+<<<<<<< HEAD
+=======
+  simple_read_from_buffer
+>>>>>>> aosp/android14-5.15-lts
   simple_strtol
   simple_strtoul
   simple_strtoull
@@ -852,6 +1407,12 @@
   sprintf
   sscanf
   __stack_chk_fail
+<<<<<<< HEAD
+=======
+  static_key_count
+  static_key_disable
+  static_key_enable
+>>>>>>> aosp/android14-5.15-lts
   stpcpy
   strcasecmp
   strcat
@@ -869,10 +1430,17 @@
   strrchr
   strsep
   strstr
+<<<<<<< HEAD
+=======
+  submit_bh
+  submit_bio
+  submit_bio_wait
+>>>>>>> aosp/android14-5.15-lts
   __sw_hweight16
   __sw_hweight32
   __sw_hweight64
   __sw_hweight8
+<<<<<<< HEAD
   sync_file_create
   synchronize_irq
   synchronize_net
@@ -885,11 +1453,34 @@
   sysfs_remove_group
   sysfs_remove_link
   sysfs_streq
+=======
+  sync_blockdev
+  sync_dirty_buffer
+  sync_file_create
+  sync_filesystem
+  synchronize_irq
+  synchronize_net
+  synchronize_rcu
+  sync_inode_metadata
+  sync_mapping_buffers
+  sysfs_create_files
+  sysfs_create_group
+  sysfs_create_link
+  sysfs_emit
+  sysfs_notify
+  sysfs_remove_files
+  sysfs_remove_group
+  sysfs_remove_link
+>>>>>>> aosp/android14-5.15-lts
   sysrq_mask
   system_freezable_wq
   system_freezing_cnt
   system_power_efficient_wq
   system_state
+<<<<<<< HEAD
+=======
+  system_unbound_wq
+>>>>>>> aosp/android14-5.15-lts
   system_wq
   sys_tz
   task_active_pid_ns
@@ -902,6 +1493,10 @@
   thermal_zone_device_unregister
   thermal_zone_device_update
   thermal_zone_unbind_cooling_device
+<<<<<<< HEAD
+=======
+  time64_to_tm
+>>>>>>> aosp/android14-5.15-lts
   touch_softlockup_watchdog
   trace_event_buffer_commit
   trace_event_buffer_reserve
@@ -923,9 +1518,18 @@
   __tracepoint_mmap_lock_released
   __tracepoint_mmap_lock_start_locking
   tracepoint_probe_register
+<<<<<<< HEAD
   trace_print_array_seq
   trace_raw_output_prep
   try_module_get
+=======
+  tracepoint_probe_unregister
+  trace_print_array_seq
+  trace_raw_output_prep
+  truncate_inode_pages_final
+  truncate_pagecache
+  truncate_setsize
+>>>>>>> aosp/android14-5.15-lts
   tty_flip_buffer_push
   tty_termios_baud_rate
   tty_termios_encode_baud_rate
@@ -948,13 +1552,25 @@
   uart_write_wakeup
   __ubsan_handle_cfi_check_fail_abort
   __udelay
+<<<<<<< HEAD
   unlock_page
   unpin_user_pages
   unregister_blkdev
+=======
+  unload_nls
+  unlock_buffer
+  unlock_new_inode
+  unlock_page
+  unpin_user_pages
+>>>>>>> aosp/android14-5.15-lts
   __unregister_chrdev
   unregister_chrdev_region
   unregister_console
   unregister_die_notifier
+<<<<<<< HEAD
+=======
+  unregister_filesystem
+>>>>>>> aosp/android14-5.15-lts
   unregister_inet6addr_notifier
   unregister_inetaddr_notifier
   unregister_kprobe
@@ -966,13 +1582,17 @@
   unregister_pernet_device
   unregister_pm_notifier
   unregister_reboot_notifier
+<<<<<<< HEAD
   unregister_shrinker
+=======
+>>>>>>> aosp/android14-5.15-lts
   unregister_sysctl_table
   up
   up_read
   up_write
   usb_add_gadget_udc
   usb_add_hcd
+<<<<<<< HEAD
   usb_alloc_coherent
   usb_alloc_urb
   usb_anchor_urb
@@ -981,6 +1601,17 @@
   usb_bulk_msg
   usb_control_msg
   __usb_create_hcd
+=======
+  usb_alloc_urb
+  usb_amd_dev_put
+  usb_amd_quirk_pll_disable
+  usb_amd_quirk_pll_enable
+  usb_anchor_urb
+  usb_autopm_get_interface
+  usb_autopm_put_interface
+  usb_calc_bus_time
+  usb_control_msg
+>>>>>>> aosp/android14-5.15-lts
   usb_create_hcd
   usb_debug_root
   usb_del_gadget_udc
@@ -990,7 +1621,10 @@
   usb_driver_claim_interface
   usb_driver_release_interface
   usb_ep_set_maxpacket_limit
+<<<<<<< HEAD
   usb_free_coherent
+=======
+>>>>>>> aosp/android14-5.15-lts
   usb_free_urb
   usb_gadget_giveback_request
   usb_gadget_map_request
@@ -998,12 +1632,27 @@
   usb_gadget_unmap_request
   usb_get_dr_mode
   usb_get_from_anchor
+<<<<<<< HEAD
   usb_hcd_is_primary_hcd
   usb_hcd_platform_shutdown
   usb_ifnum_to_if
   usb_interrupt_msg
   usb_kill_anchored_urbs
   usb_kill_urb
+=======
+  usb_hcd_check_unlink_urb
+  usb_hcd_giveback_urb
+  usb_hc_died
+  usb_hcd_link_urb_to_ep
+  usb_hcd_platform_shutdown
+  usb_hcd_poll_rh_status
+  usb_hcd_resume_root_hub
+  usb_hcds_loaded
+  usb_hcd_unlink_urb_from_ep
+  usb_ifnum_to_if
+  usb_interrupt_msg
+  usb_kill_anchored_urbs
+>>>>>>> aosp/android14-5.15-lts
   usb_phy_set_charger_current
   usb_put_hcd
   usb_register_driver
@@ -1011,6 +1660,10 @@
   usb_role_switch_get_drvdata
   usb_role_switch_register
   usb_role_switch_unregister
+<<<<<<< HEAD
+=======
+  usb_root_hub_lost_power
+>>>>>>> aosp/android14-5.15-lts
   usb_scuttle_anchored_urbs
   usb_set_interface
   usb_speed_string
@@ -1018,18 +1671,33 @@
   usb_unanchor_urb
   __usecs_to_jiffies
   usleep_range_state
+<<<<<<< HEAD
+=======
+  utf16s_to_utf8s
+  utf8_to_utf32
+>>>>>>> aosp/android14-5.15-lts
   uuid_null
   vabits_actual
   verify_pkcs7_signature
   vfree
+<<<<<<< HEAD
+=======
+  vfs_fsync_range
+>>>>>>> aosp/android14-5.15-lts
   vmalloc
   vmalloc_to_page
   vmalloc_to_pfn
   vmap
+<<<<<<< HEAD
   vm_get_page_prot
   vm_iomap_memory
   vm_mmap
   vm_munmap
+=======
+  vm_mmap
+  vm_munmap
+  vm_zone_stat
+>>>>>>> aosp/android14-5.15-lts
   vprintk_emit
   vsnprintf
   vsprintf
@@ -1038,12 +1706,18 @@
   vzalloc_node
   wait_for_completion
   wait_for_completion_interruptible
+<<<<<<< HEAD
   wait_for_completion_interruptible_timeout
   wait_for_completion_timeout
+=======
+  wait_for_completion_timeout
+  __wait_on_buffer
+>>>>>>> aosp/android14-5.15-lts
   __wake_up
   wake_up_process
   wakeup_source_register
   wakeup_source_unregister
+<<<<<<< HEAD
   __warn_printk
   wireless_nlevent_flush
   xhci_gen_setup
@@ -1061,3 +1735,9 @@
   zs_map_object
   zs_pool_stats
   zs_unmap_object
+=======
+  __wake_up_sync
+  __warn_printk
+  wireless_nlevent_flush
+  write_inode_now
+>>>>>>> aosp/android14-5.15-lts

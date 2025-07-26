@@ -950,7 +950,6 @@ enum bpf_prog_type {
 	BPF_PROG_TYPE_SK_LOOKUP,
 	BPF_PROG_TYPE_SYSCALL, /* a program that can execute syscalls */
 
-#ifndef __GENKSYMS__
 	/*
 	 * Until fuse-bpf is upstreamed, this value must be at the end to allow for
 	 * other recently-added upstreamed values to be correct.
@@ -960,7 +959,6 @@ enum bpf_prog_type {
 	 * upstreamed.
 	 */
 	BPF_PROG_TYPE_FUSE,
-#endif
 };
 
 enum bpf_attach_type {
@@ -1707,6 +1705,7 @@ union bpf_attr {
  * 		for updates resulting in a null checksum the value is set to
  * 		**CSUM_MANGLED_0** instead. Flag **BPF_F_PSEUDO_HDR** indicates
  * 		the checksum is to be computed against a pseudo-header.
+ * 		Flag **BPF_F_IPV6** should be set for IPv6 packets.
  *
  * 		This helper works in combination with **bpf_csum_diff**\ (),
  * 		which does not update the checksum in-place, but offers more
@@ -5118,6 +5117,7 @@ enum {
 	BPF_F_PSEUDO_HDR		= (1ULL << 4),
 	BPF_F_MARK_MANGLED_0		= (1ULL << 5),
 	BPF_F_MARK_ENFORCE		= (1ULL << 6),
+	BPF_F_IPV6			= (1ULL << 7),
 };
 
 /* BPF_FUNC_skb_set_tunnel_key and BPF_FUNC_skb_get_tunnel_key flags. */

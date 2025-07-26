@@ -32,6 +32,13 @@ config KEXEC_ELF
 config HAVE_IMA_KEXEC
 	bool
 
+config ARCH_HAS_SUBPAGE_FAULTS
+	bool
+	help
+	  Select if the architecture can check permissions at sub-page
+	  granularity (e.g. arm64 MTE). The probe_user_*() functions
+	  must be implemented.
+
 config SET_FS
 	bool
 
@@ -628,6 +635,13 @@ config SHADOW_CALL_STACK
 	  reading and writing arbitrary memory may be able to locate them
 	  and hijack control flow by modifying the stacks.
 
+config DYNAMIC_SCS
+	bool
+	help
+	  Set by the arch code if it relies on code patching to insert the
+	  shadow call stack push and pop instructions rather than on the
+	  compiler.
+
 config LTO
 	bool
 	help
@@ -725,10 +739,7 @@ config ARCH_SUPPORTS_CFI_CLANG
 config CFI_CLANG
 	bool "Use Clang's Control Flow Integrity (CFI)"
 	depends on LTO_CLANG && ARCH_SUPPORTS_CFI_CLANG
-	# Clang >= 12:
-	# - https://bugs.llvm.org/show_bug.cgi?id=46258
-	# - https://bugs.llvm.org/show_bug.cgi?id=47479
-	depends on CLANG_VERSION >= 120000
+	depends on CLANG_VERSION >= 140000
 	select KALLSYMS
 	help
 	  This option enables Clang’s forward-edge Control Flow Integrity
@@ -1248,6 +1259,9 @@ config RELR
 	  are compatible).
 
 config ARCH_HAS_MEM_ENCRYPT
+	bool
+
+config ARCH_HAS_MEM_RELINQUISH
 	bool
 
 config ARCH_HAS_CC_PLATFORM

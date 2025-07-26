@@ -13,7 +13,7 @@
 
 static int ___cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 			       struct net_device *dev, unsigned int link_id,
-			       bool notify, struct genl_info *info)
+			       bool notify)
 {
 	struct wireless_dev *wdev = dev->ieee80211_ptr;
 	int err;
@@ -33,15 +33,7 @@ static int ___cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 	if (!wdev->links[link_id].ap.beacon_interval)
 		return -ENOENT;
 
-#ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 	err = rdev_stop_ap(rdev, dev, link_id);
-#else /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-	if (info)
-		params.mlo_info.reconfig =
-			nla_get_flag(info->attrs[NL80211_ATTR_RECONFIG]);
-
-	err = rdev_stop_ap(rdev, dev, &params);
-#endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
 	if (!err) {
 		wdev->conn_owner_nlportid = 0;
 		wdev->links[link_id].ap.beacon_interval = 0;
@@ -65,16 +57,16 @@ static int ___cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 
 int __cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 		       struct net_device *dev, int link_id,
-		       bool notify, struct genl_info *info)
+		       bool notify)
 {
 	unsigned int link;
 	int ret = 0;
 
 	if (link_id >= 0)
-		return ___cfg80211_stop_ap(rdev, dev, link_id, notify, info);
+		return ___cfg80211_stop_ap(rdev, dev, link_id, notify);
 
 	for_each_valid_link(dev->ieee80211_ptr, link) {
-		int ret1 = ___cfg80211_stop_ap(rdev, dev, link, notify, NULL);
+		int ret1 = ___cfg80211_stop_ap(rdev, dev, link, notify);
 
 		if (ret1)
 			ret = ret1;
@@ -86,7 +78,7 @@ int __cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 
 int cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 		     struct net_device *dev, int link_id,
-		     bool notify, struct genl_info *info)
+		     bool notify)
 {
 	struct wireless_dev *wdev = dev->ieee80211_ptr;
 	int err;
@@ -96,7 +88,7 @@ int cfg80211_stop_ap(struct cfg80211_registered_device *rdev,
 #endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
 
 	wdev_lock(wdev);
-	err = __cfg80211_stop_ap(rdev, dev, link_id, notify, info);
+	err = __cfg80211_stop_ap(rdev, dev, link_id, notify);
 	wdev_unlock(wdev);
 
 	return err;

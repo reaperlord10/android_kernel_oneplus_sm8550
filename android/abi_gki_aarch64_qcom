@@ -101,9 +101,6 @@
   blk_freeze_queue_start
   blk_get_queue
   blk_get_request
-  blk_ksm_get_slot_idx
-  blk_ksm_register
-  blk_ksm_reprogram_all_keys
   blk_mark_disk_dead
   blk_mq_alloc_request
   blk_mq_alloc_request_hctx
@@ -116,7 +113,6 @@
   blk_mq_init_queue
   blk_mq_map_queues
   blk_mq_pci_map_queues
-  blk_mq_quiesce_queue_nowait
   blk_mq_requeue_request
   blk_mq_rq_cpu
   blk_mq_tagset_busy_iter
@@ -408,7 +404,6 @@
   _dev_info
   devm_add_action
   devm_alloc_etherdev_mqs
-  devm_blk_ksm_init
   devm_clk_bulk_get_all
   devm_clk_get
   devm_clk_get_optional
@@ -702,7 +697,6 @@
   ethnl_cable_test_pulse
   ethnl_cable_test_result
   ethnl_cable_test_step
-  eth_platform_get_mac_address
   ethtool_convert_legacy_u32_to_link_mode
   ethtool_convert_link_mode_to_legacy_u32
   eventfd_ctx_fdget
@@ -790,11 +784,7 @@
   geni_se_tx_dma_unprep
   genphy_check_and_restart_aneg
   __genphy_config_aneg
-  genphy_c45_an_config_aneg
-  genphy_c45_check_and_restart_aneg
-  genphy_c45_pma_setup_forced
   genphy_c45_read_status
-  genphy_handle_interrupt_no_ack
   genphy_read_abilities
   genphy_read_lpa
   genphy_read_mmd_unsupported
@@ -844,12 +834,10 @@
   get_user_ifreq
   get_zeroed_page
   gf128mul_lle
-  gic_cpu_init
-  gic_dist_init
-  gic_dist_wait_for_rwp
-  gic_nonsecure_priorities
   gic_resume
-  gic_v2_resume
+  gic_v3_cpu_init
+  gic_v3_dist_init
+  gic_v3_dist_wait_for_rwp
   gov_attr_set_init
   gov_attr_set_put
   governor_sysfs_ops
@@ -976,15 +964,12 @@
   iio_device_id
   iio_device_release_direct_mode
   iio_get_time_ns
-  iio_kfifo_allocate
   iio_push_event
   iio_push_to_buffers
   iio_read_channel_processed
   iio_read_channel_raw
   iio_read_const_attr
   iio_trigger_alloc
-  iio_triggered_buffer_cleanup
-  iio_triggered_buffer_setup_ext
   iio_trigger_free
   iio_trigger_notify_done
   iio_trigger_poll
@@ -1158,7 +1143,6 @@
   __kfifo_out
   kfree
   kfree_const
-  kfree_skb
   kfree_skb_list
   kick_all_cpus_sync
   kill_anon_super
@@ -1268,7 +1252,6 @@
   mdiobus_free
   mdiobus_get_phy
   __mdiobus_read
-  __mdiobus_register
   mdiobus_read
   mdiobus_unregister
   __mdiobus_write
@@ -1348,6 +1331,7 @@
   mod_delayed_work_on
   mod_node_page_state
   mod_timer
+  mod_timer_pending
   __module_get
   module_layout
   module_put
@@ -1439,7 +1423,6 @@
   of_irq_parse_one
   of_match_device
   of_match_node
-  of_mdiobus_register
   of_modalias_node
   of_n_addr_cells
   of_node_name_eq
@@ -1532,7 +1515,6 @@
   pci_read_config_word
   __pci_register_driver
   pci_request_irq
-  pci_request_regions
   pci_restore_state
   pci_save_state
   pci_set_master
@@ -1572,8 +1554,6 @@
   phy_basic_t1_features
   phy_calibrate
   phy_config_aneg
-  phy_device_free
-  phy_device_register
   phy_drivers_register
   phy_drivers_unregister
   phy_error
@@ -1617,7 +1597,6 @@
   phy_modify
   phy_modify_changed
   phy_modify_mmd
-  phy_modify_mmd_changed
   phy_modify_paged
   phy_modify_paged_changed
   phy_power_off
@@ -1625,11 +1604,9 @@
   phy_read_mmd
   phy_read_paged
   phy_resolve_aneg_pause
-  phy_restart_aneg
   phy_restore_page
   phy_save_page
   phy_select_page
-  phy_set_max_speed
   phy_set_mode_ext
   phy_sfp_attach
   phy_sfp_detach
@@ -1882,13 +1859,6 @@
   regulator_set_mode
   regulator_set_voltage
   regulator_unregister_notifier
-  relay_close
-  relay_file_operations
-  relay_flush
-  relay_open
-  relay_reset
-  relay_subbufs_consumed
-  relay_switch_subbuf
   release_firmware
   __release_region
   release_sock
@@ -1916,7 +1886,6 @@
   rpmsg_get_signals
   rpmsg_poll
   rpmsg_register_device
-  rpmsg_register_device_override
   rpmsg_rx_done
   rpmsg_send
   rpmsg_set_signals
@@ -2064,6 +2033,7 @@
   __skb_get_hash
   __skb_gso_segment
   __skb_pad
+  skb_pull_data
   skb_push
   skb_put
   skb_queue_purge
@@ -2300,7 +2270,6 @@
   __traceiter_android_rvh_select_task_rq_rt
   __traceiter_android_rvh_set_balance_anon_file_reclaim
   __traceiter_android_rvh_set_cpus_allowed_by_task
-  __traceiter_android_rvh_set_cpus_allowed_ptr_locked
   __traceiter_android_rvh_set_gfp_zone_flags
   __traceiter_android_rvh_set_readahead_gfp_mask
   __traceiter_android_rvh_set_skip_swapcache_flags
@@ -2313,7 +2282,6 @@
   __traceiter_android_rvh_update_cpu_capacity
   __traceiter_android_rvh_update_cpus_allowed
   __traceiter_android_rvh_update_misfit_status
-  __traceiter_android_rvh_update_readahead_gfp_mask
   __traceiter_android_rvh_update_thermal_stats
   __traceiter_android_rvh_wake_up_new_task
   __traceiter_android_vh_audio_usb_offload_connect
@@ -2323,7 +2291,6 @@
   __traceiter_android_vh_check_hibernation_swap
   __traceiter_android_vh_check_uninterruptible_tasks
   __traceiter_android_vh_check_uninterruptible_tasks_dn
-  __traceiter_android_vh_cma_alloc_retry
   __traceiter_android_vh_cpu_idle_enter
   __traceiter_android_vh_cpu_idle_exit
   __traceiter_android_vh_cpuidle_psci_enter
@@ -2337,18 +2304,15 @@
   __traceiter_android_vh_ftrace_oops_exit
   __traceiter_android_vh_ftrace_size_check
   __traceiter_android_vh_gic_resume
-  __traceiter_android_vh_gic_suspend
-  __traceiter_android_vh_gic_v2_resume
   __traceiter_android_vh_handle_tlb_conf
+  __traceiter_android_vh_gic_v3_suspend
   __traceiter_android_vh_init_aes_encrypt
   __traceiter_android_vh_ipi_stop
   __traceiter_android_vh_jiffies_update
   __traceiter_android_vh_kswapd_per_node
   __traceiter_android_vh_logbuf
   __traceiter_android_vh_logbuf_pr_cont
-  __traceiter_android_vh_madvise_cold_or_pageout
   __traceiter_android_vh_mmc_sdio_pm_flag_set
-  __traceiter_android_vh_mmc_sd_update_cmdline_timing
   __traceiter_android_vh_post_image_save
   __traceiter_android_vh_printk_hotplug
   __traceiter_android_vh_rproc_recovery
@@ -2361,7 +2325,6 @@
   __traceiter_android_vh_show_suspend_epoch_val
   __traceiter_android_vh_skip_swap_map_write
   __traceiter_android_vh_timer_calc_index
-  __traceiter_android_vh_try_fixup_sea
   __traceiter_android_vh_ufs_check_int_errors
   __traceiter_android_vh_ufs_clock_scaling
   __traceiter_android_vh_ufs_compl_command
@@ -2424,7 +2387,6 @@
   __tracepoint_android_rvh_select_task_rq_rt
   __tracepoint_android_rvh_set_balance_anon_file_reclaim
   __tracepoint_android_rvh_set_cpus_allowed_by_task
-  __tracepoint_android_rvh_set_cpus_allowed_ptr_locked
   __tracepoint_android_rvh_set_gfp_zone_flags
   __tracepoint_android_rvh_set_readahead_gfp_mask
   __tracepoint_android_rvh_set_skip_swapcache_flags
@@ -2437,7 +2399,6 @@
   __tracepoint_android_rvh_update_cpu_capacity
   __tracepoint_android_rvh_update_cpus_allowed
   __tracepoint_android_rvh_update_misfit_status
-  __tracepoint_android_rvh_update_readahead_gfp_mask
   __tracepoint_android_rvh_update_thermal_stats
   __tracepoint_android_rvh_wake_up_new_task
   __tracepoint_android_vh_audio_usb_offload_connect
@@ -2461,18 +2422,15 @@
   __tracepoint_android_vh_ftrace_oops_exit
   __tracepoint_android_vh_ftrace_size_check
   __tracepoint_android_vh_gic_resume
-  __tracepoint_android_vh_gic_suspend
-  __tracepoint_android_vh_gic_v2_resume
   __tracepoint_android_vh_handle_tlb_conf
+  __tracepoint_android_vh_gic_v3_suspend
   __tracepoint_android_vh_init_aes_encrypt
   __tracepoint_android_vh_ipi_stop
   __tracepoint_android_vh_jiffies_update
   __tracepoint_android_vh_kswapd_per_node
   __tracepoint_android_vh_logbuf
   __tracepoint_android_vh_logbuf_pr_cont
-  __tracepoint_android_vh_madvise_cold_or_pageout
   __tracepoint_android_vh_mmc_sdio_pm_flag_set
-  __tracepoint_android_vh_mmc_sd_update_cmdline_timing
   __tracepoint_android_vh_post_image_save
   __tracepoint_android_vh_printk_hotplug
   __tracepoint_android_vh_rproc_recovery
@@ -2615,9 +2573,7 @@
   usb_control_msg_send
   usb_debug_root
   usb_decode_ctrl
-  usb_disable_autosuspend
   usb_driver_set_configuration
-  usb_enable_autosuspend
   usb_ep_alloc_request
   usb_ep_autoconfig
   usb_ep_dequeue

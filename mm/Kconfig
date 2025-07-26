@@ -189,6 +189,13 @@ config MEMORY_BALLOON
 	bool
 
 #
+# support for memory relinquish
+config MEMORY_RELINQUISH
+	def_bool y
+	depends on ARCH_HAS_MEM_RELINQUISH
+	depends on MEMORY_BALLOON || PAGE_REPORTING
+
+#
 # support for memory balloon compaction
 config BALLOON_COMPACTION
 	bool "Allow for balloon memory compaction/migration"
@@ -515,6 +522,40 @@ config CMA_AREAS
 	  number of CMA area in the system.
 
 	  If unsure, leave the default value "7" in UMA and "19" in NUMA.
+
+#
+# Select this config option from the architecture Kconfig, if available, to set
+# the max page order for physically contiguous allocations.
+#
+config FORCE_MAX_ZONEORDER
+	int
+
+#
+# When FORCE_MAX_ZONEORDER is not defined,
+# the default page block order is MAX_ORDER (10) as per
+# include/linux/mmzone.h.
+#
+config PAGE_BLOCK_ORDER
+	int "Page Block Order"
+	range 1 10 if FORCE_MAX_ZONEORDER = 0 || FORCE_MAX_ZONEORDER = ""
+	default 10 if FORCE_MAX_ZONEORDER = 0 || FORCE_MAX_ZONEORDER = ""
+	range 1 FORCE_MAX_ZONEORDER if FORCE_MAX_ZONEORDER != 0
+	default FORCE_MAX_ZONEORDER if FORCE_MAX_ZONEORDER != 0
+	help
+	  The page block order refers to the power of two number of pages that
+	  are physically contiguous and can have a migrate type associated to
+	  them. The maximum size of the page block order is limited by
+	  FORCE_MAX_ZONEORDER.
+
+	  This config allows overriding the default page block order when the
+	  page block order is required to be smaller than FORCE_MAX_ZONEORDER
+	  or MAX_ORDER.
+
+	  Reducing pageblock order can negatively impact THP generation
+	  success rate. If your workloads uses THP heavily, please use this
+	  option with caution.
+
+	  Don't change if unsure.
 
 config MEM_SOFT_DIRTY
 	bool "Track memory changes"
@@ -894,13 +935,13 @@ config KMAP_LOCAL_NON_LINEAR_PTE_ARRAY
 config IO_MAPPING
 	bool
 
-config SECRETMEM
-	def_bool ARCH_HAS_SET_DIRECT_MAP && !EMBEDDED
-
 # Some architectures want callbacks for all IO mappings in order to
 # track the physical addresses that get used as devices.
 config ARCH_HAS_IOREMAP_PHYS_HOOKS
 	bool
+
+config SECRETMEM
+	def_bool ARCH_HAS_SET_DIRECT_MAP && !EMBEDDED
 
 config ANON_VMA_NAME
 	bool "Anonymous VMA name support"

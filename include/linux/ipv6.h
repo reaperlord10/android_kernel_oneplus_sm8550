@@ -4,7 +4,6 @@
 
 #include <uapi/linux/ipv6.h>
 #include <linux/android_kabi.h>
-#include <linux/build_bug.h>
 
 #define ipv6_optlen(p)  (((p)->hdrlen+1) << 3)
 #define ipv6_authlen(p) (((p)->hdrlen+2) << 2)
@@ -87,7 +86,8 @@ struct ipv6_devconf {
 
 	struct ctl_table_header *sysctl_header;
 
-	ANDROID_KABI_RESERVE(1);
+	ANDROID_KABI_USE(1, struct { __s32 accept_ra_min_lft; u32 padding; });
+
 	ANDROID_KABI_RESERVE(2);
 	ANDROID_KABI_RESERVE(3);
 	ANDROID_KABI_BACKPORT_OK(4);

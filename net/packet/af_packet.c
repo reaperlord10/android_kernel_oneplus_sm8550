@@ -3507,7 +3507,7 @@ static int packet_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
 			vlan_get_protocol_dgram(skb) : skb->protocol;
 	}
 
-	sock_recv_ts_and_drops(msg, sk, skb);
+	sock_recv_cmsgs(msg, sk, skb);
 
 	if (msg->msg_name) {
 		const size_t max_len = min(sizeof(skb->cb),

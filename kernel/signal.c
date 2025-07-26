@@ -59,7 +59,6 @@
 
 #undef CREATE_TRACE_POINTS
 #include <trace/hooks/signal.h>
-#include <trace/hooks/dtask.h>
 /*
  * SLAB caches for signal bits.
  */

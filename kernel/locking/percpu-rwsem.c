@@ -261,15 +261,14 @@ void __sched percpu_down_write(struct percpu_rw_semaphore *sem)
 	 */
 
 	/* Wait for all active readers to complete. */
-	trace_android_rvh_percpu_rwsem_wait_complete(sem, TASK_UNINTERRUPTIBLE, &complete);
-	if (!complete)
-		rcuwait_wait_event(&sem->writer, readers_active_check(sem), TASK_UNINTERRUPTIBLE);
+	rcuwait_wait_event(&sem->writer, readers_active_check(sem), TASK_UNINTERRUPTIBLE);
 	trace_android_vh_record_pcpu_rwsem_starttime(current, jiffies);
 }
 EXPORT_SYMBOL_GPL(percpu_down_write);
 
 void percpu_up_write(struct percpu_rw_semaphore *sem)
 {
+	trace_android_vh_record_pcpu_rwsem_starttime(current, 0);
 	rwsem_release(&sem->dep_map, _RET_IP_);
 
 	trace_android_vh_percpu_rwsem_up_write(sem);

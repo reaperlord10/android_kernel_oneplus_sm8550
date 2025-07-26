@@ -50,9 +50,7 @@
 #include <trace/events/filemap.h>
 
 #undef CREATE_TRACE_POINTS
-#ifndef __GENKSYMS__
 #include <trace/hooks/mm.h>
-#endif
 
 /*
  * FIXME: remove all knowledge of the buffer layer from the core VM

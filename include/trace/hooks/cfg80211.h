@@ -9,10 +9,13 @@
 
 #include <trace/hooks/vendor_hooks.h>
 
+<<<<<<< HEAD
 #ifdef __GENKSYMS__
 #include <net/cfg80211.h>
 #endif
 
+=======
+>>>>>>> aosp/android14-5.15-lts
 struct wiphy;
 struct wireless_dev;
 

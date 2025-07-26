@@ -25,6 +25,7 @@
  */
 
 #include <linux/sched.h>
+#include <trace/hooks/sched.h>
 #include "sched.h"
 #include "pelt.h"
 
@@ -181,7 +182,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
  *            = u_0 + u_1*y + u_2*y^2 + ... [re-labeling u_i --> u_{i+1}]
  */
 int ___update_load_sum(u64 now, struct sched_avg *sa,
-		  unsigned long load, unsigned long runnable, int running)
+		       unsigned long load, unsigned long runnable, int running)
 {
 	u64 delta;
 
@@ -204,6 +205,8 @@ int ___update_load_sum(u64 now, struct sched_avg *sa,
 		return 0;
 
 	sa->last_update_time += delta << 10;
+
+	trace_android_rvh_update_load_sum(sa, &delta, &sched_pelt_lshift);
 
 	/*
 	 * running is a subset of runnable (weight) so running can't be set if

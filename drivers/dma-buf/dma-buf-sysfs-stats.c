@@ -13,8 +13,6 @@
 #include <linux/sysfs.h>
 #include <linux/workqueue.h>
 
-#include <trace/hooks/dmabuf.h>
-
 #include "dma-buf-sysfs-stats.h"
 
 #define to_dma_buf_entry_from_kobj(x) container_of(x, struct dma_buf_sysfs_entry, kobj)

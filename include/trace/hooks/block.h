@@ -7,6 +7,7 @@
 #if !defined(_TRACE_HOOK_BLOCK_H) || defined(TRACE_HEADER_MULTI_READ)
 #define _TRACE_HOOK_BLOCK_H
 
+<<<<<<< HEAD
 #include <linux/tracepoint.h>
 #include <trace/hooks/vendor_hooks.h>
 
@@ -25,16 +26,31 @@ DECLARE_HOOK(android_vh_blk_alloc_rqs,
 	TP_PROTO(size_t *rq_size, struct blk_mq_tag_set *set,
 		struct blk_mq_tags *tags, unsigned int hctx_idx),
 	TP_ARGS(rq_size, set, tags, hctx_idx));
+=======
+#include <trace/hooks/vendor_hooks.h>
+
+struct blk_mq_tags;
+struct blk_mq_alloc_data;
+struct blk_mq_tag_set;
+
+DECLARE_HOOK(android_vh_blk_alloc_rqs,
+	TP_PROTO(size_t *rq_size, struct blk_mq_tag_set *set,
+		struct blk_mq_tags *tags),
+	TP_ARGS(rq_size, set, tags));
+>>>>>>> aosp/android14-5.15-lts
 
 DECLARE_HOOK(android_vh_blk_rq_ctx_init,
 	TP_PROTO(struct request *rq, struct blk_mq_tags *tags,
 		struct blk_mq_alloc_data *data, u64 alloc_time_ns),
 	TP_ARGS(rq, tags, data, alloc_time_ns));
 
+<<<<<<< HEAD
 DECLARE_HOOK(android_vh_blk_account_io_done,
         TP_PROTO(struct request *rq),
         TP_ARGS(rq));
 
+=======
+>>>>>>> aosp/android14-5.15-lts
 #endif /* _TRACE_HOOK_BLOCK_H */
 
 /* This part must be outside protection */

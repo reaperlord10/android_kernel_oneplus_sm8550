@@ -9,14 +9,9 @@
 
 #include <trace/hooks/vendor_hooks.h>
 
-#ifdef __GENKSYMS__
-#include <linux/cpufreq.h>
-#include <linux/thermal.h>
-#endif
-
-struct cpufreq_policy;
 struct thermal_cooling_device;
 struct thermal_zone_device;
+struct cpufreq_policy;
 
 DECLARE_HOOK(android_vh_modify_thermal_request_freq,
 	TP_PROTO(struct cpufreq_policy *policy, unsigned long *request_freq),
@@ -54,18 +49,9 @@ DECLARE_HOOK(android_vh_disable_thermal_cooling_stats,
 	TP_PROTO(struct thermal_cooling_device *cdev, int *disable_stats),
 	TP_ARGS(cdev, disable_stats));
 
-DECLARE_HOOK(android_vh_modify_thermal_cpu_get_power,
-	TP_PROTO(struct cpufreq_policy *policy, u32 *power),
-	TP_ARGS(policy, power));
-
 DECLARE_HOOK(android_vh_enable_thermal_genl_check,
 	TP_PROTO(int event, int tz_id, int *enable_thermal_genl),
 	TP_ARGS(event, tz_id, enable_thermal_genl));
-
-struct thermal_zone_device;
-DECLARE_HOOK(android_vh_thermal_pm_notify_suspend,
-	     TP_PROTO(struct thermal_zone_device *tz, int *irq_wakeable),
-	     TP_ARGS(tz, irq_wakeable));
 
 #endif /* _TRACE_HOOK_THERMAL_H */
 /* This part must be outside protection */

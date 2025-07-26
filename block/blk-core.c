@@ -48,7 +48,11 @@
 #include <trace/hooks/block.h>
 
 #include "blk.h"
+
 #include "blk-mq.h"
+#ifndef __GENKSYMS__
+#include "blk-mq-debugfs.h"
+#endif
 #include "blk-mq-sched.h"
 #include "blk-pm.h"
 #ifndef __GENKSYMS__
@@ -775,7 +779,7 @@ static inline blk_status_t blk_check_zone_append(struct request_queue *q,
 		return BLK_STS_NOTSUPP;
 
 	/* The bio sector must point to the start of a sequential zone */
-	if (pos & (blk_queue_zone_sectors(q) - 1) ||
+	if (!bdev_is_zone_start(bio->bi_bdev, pos) ||
 	    !blk_queue_zone_is_seq(q, pos))
 		return BLK_STS_IOERR;
 
@@ -1803,9 +1807,10 @@ int __init blk_dev_init(void)
 		panic("Failed to create kblockd\n");
 
 	blk_requestq_cachep = kmem_cache_create("request_queue",
-			sizeof(struct request_queue), 0, SLAB_PANIC, NULL);
+		sizeof(struct internal_request_queue), 0, SLAB_PANIC, NULL);
 
 	blk_debugfs_root = debugfs_create_dir("block", NULL);
+	blk_mq_debugfs_init();
 
 	return 0;
 }

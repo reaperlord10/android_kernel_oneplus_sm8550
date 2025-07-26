@@ -1,4 +1,5 @@
 [abi_symbol_list]
+<<<<<<< HEAD
 #required by codec module
   snd_soc_component_enable_pin
   snd_soc_component_get_pin_status
@@ -6,3 +7,25 @@
 #required for mmc debugging
   __traceiter_block_rq_complete
   __tracepoint_block_rq_complete
+=======
+  __cfi_slowpath_diag
+  console_drivers
+  cpu_number
+  __cpu_online_mask
+  gic_nonsecure_priorities
+  memchr
+  memcpy
+  memmove
+  _printk
+  _raw_spin_trylock
+  _raw_spin_unlock_irqrestore
+  snprintf
+  sprintf
+  __stack_chk_fail
+  strcmp
+  __traceiter_android_vh_printk_console_unlock
+  __tracepoint_android_vh_printk_console_unlock
+  tracepoint_probe_register
+  tracepoint_probe_unregister
+  __ubsan_handle_cfi_check_fail_abort
+>>>>>>> aosp/android14-5.15-lts

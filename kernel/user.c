@@ -155,9 +155,6 @@ static void user_epoll_free(struct user_struct *up)
 static void free_user(struct user_struct *up, unsigned long flags)
 	__releases(&uidhash_lock)
 {
-	struct ext_user_struct *ext_user;
-
-	ext_user = container_of(up, struct ext_user_struct, user);
 	trace_android_vh_free_user(up);
 	uid_hash_remove(up);
 	spin_unlock_irqrestore(&uidhash_lock, flags);

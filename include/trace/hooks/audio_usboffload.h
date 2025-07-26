@@ -9,15 +9,8 @@
 
 #include <trace/hooks/vendor_hooks.h>
 
-#ifdef __GENKSYMS__
-#include <../sound/usb/usbaudio.h>
-#include <linux/usb.h>
-#include <sound/pcm.h>
-#endif
-
 struct snd_usb_audio;
 struct usb_interface;
-struct snd_pcm_substream;
 
 DECLARE_HOOK(android_vh_audio_usb_offload_vendor_set,
 	TP_PROTO(void *arg),

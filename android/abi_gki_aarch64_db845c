@@ -72,6 +72,7 @@
   crypto_destroy_tfm
   crypto_shash_setkey
   crypto_shash_update
+  csum_partial
   _ctype
   debugfs_create_dir
   debugfs_create_file
@@ -231,9 +232,6 @@
   flush_workqueue
   free_io_pgtable_ops
   free_irq
-  __free_pages
-  free_pages
-  free_percpu
   gcd
   generic_handle_domain_irq
   generic_handle_irq
@@ -353,7 +351,7 @@
   kfree
   kfree_const
   kfree_sensitive
-  kfree_skb
+  kfree_skb_reason
   __kmalloc
   kmalloc_caches
   kmalloc_order_trace
@@ -402,6 +400,7 @@
   misc_register
   mod_delayed_work_on
   mod_timer
+  __module_get
   module_layout
   __msecs_to_jiffies
   msleep
@@ -529,6 +528,7 @@
   preempt_schedule_notrace
   prepare_to_wait_event
   _printk
+  __pskb_copy_fclone
   pskb_expand_head
   __pskb_pull_tail
   put_device
@@ -743,6 +743,7 @@
   vunmap
   vzalloc
   wait_for_completion_interruptible
+  wait_for_completion_interruptible_timeout
   wait_for_completion_timeout
   __wake_up
   wake_up_process
@@ -905,7 +906,7 @@
   seq_putc
 
 # required by cqhci.ko
-  devm_blk_ksm_init
+  devm_blk_crypto_profile_init
   dmam_free_coherent
   mmc_cqe_request_done
 
@@ -1067,6 +1068,7 @@
   eth_mac_addr
   ethtool_op_get_link
   free_netdev
+  free_percpu
   get_random_u32
   __hw_addr_init
   __hw_addr_sync
@@ -1639,6 +1641,7 @@
   __devm_iio_device_register
 
 # required by qcom-spmi-pmic.ko
+  __devm_regmap_init_spmi_ext
   __spmi_driver_register
 
 # required by qcom-spmi-temp-alarm.ko
@@ -1740,21 +1743,6 @@
   __xa_alloc
   __xa_insert
   xa_load
-
-# required by reboot-mode.ko
-  devres_add
-  __devres_alloc_node
-  devres_free
-  devres_release
-
-# required by regmap-spmi.ko
-  spmi_ext_register_read
-  spmi_ext_register_readl
-  spmi_ext_register_write
-  spmi_ext_register_writel
-  spmi_register_read
-  spmi_register_write
-  spmi_register_zero_write
 
 # required by rmtfs_mem.ko
   alloc_chrdev_region
@@ -1899,6 +1887,7 @@
   dmabuf_page_pool_create
   dmabuf_page_pool_destroy
   dmabuf_page_pool_free
+  dmabuf_page_pool_get_size
   dma_heap_add
   dma_heap_get_dev
   dma_heap_get_name
@@ -1907,7 +1896,9 @@
   __sg_page_iter_next
 
 # required by ufs_qcom.ko
+  insert_resource
   phy_set_mode_ext
+  remove_resource
   ufshcd_dme_configure_adapt
   ufshcd_dme_get_attr
   ufshcd_dme_set_attr
@@ -1927,6 +1918,8 @@
   ufshcd_system_resume
   ufshcd_system_suspend
   ufshcd_system_thaw
+  ufshcd_uic_hibern8_enter
+  ufshcd_uic_hibern8_exit
 
 # required by ulpi.ko
   of_device_modalias
@@ -1937,88 +1930,17 @@
   mfd_add_devices
   mfd_remove_devices
 
-# required by zram.ko
-  __alloc_percpu
-  bio_endio
-  bio_end_io_acct_remapped
-  bio_start_io_acct
-  __blk_alloc_disk
-  blk_cleanup_disk
-  blk_queue_flag_clear
-  blk_queue_flag_set
-  blk_queue_io_min
-  blk_queue_io_opt
-  blk_queue_logical_block_size
-  blk_queue_max_discard_sectors
-  blk_queue_max_write_zeroes_sectors
-  blk_queue_physical_block_size
-  __cpuhp_state_add_instance
-  __cpuhp_state_remove_instance
-  crypto_alloc_base
-  crypto_comp_compress
-  crypto_comp_decompress
-  crypto_has_alg
-  del_gendisk
-  device_add_disk
-  disk_end_io_acct
-  disk_start_io_acct
-  down_write
-  flush_dcache_page
-  fsync_bdev
-  __get_free_pages
-  __init_rwsem
-  kstrtou16
-  kstrtoull
-  memset64
-  page_endio
-  __register_blkdev
-  set_capacity
-  set_capacity_and_notify
-  sysfs_streq
-  unregister_blkdev
-  up_write
-  zs_compact
-  zs_create_pool
-  zs_destroy_pool
-  zs_free
-  zs_get_total_pages
-  zs_huge_class_size
-  zs_malloc
-  zs_map_object
-  zs_pool_stats
-  zs_unmap_object
-
-# required by zsmalloc.ko
-  alloc_anon_inode
-  __alloc_pages
-  __ClearPageMovable
-  contig_page_data
-  dec_zone_page_state
-  inc_zone_page_state
-  init_pseudo
-  iput
-  kern_mount
-  kern_unmount
-  kill_anon_super
-  page_mapping
-  __put_page
-  __SetPageMovable
-  unlock_page
-  wait_on_page_bit
-
 # preserved by --additions-only
-  android_kmalloc_64_create
-  drm_connector_init_with_ddc
-  drm_edid_block_valid
   drm_mode_object_put
   gpiod_direction_input
-  led_classdev_register_ext
-  led_classdev_unregister
-  led_colors
-  led_set_brightness
-  of_clk_get_by_name
   pcie_capability_write_word
   snd_soc_get_volsw_sx
   snd_soc_info_volsw_sx
   snd_soc_put_volsw_sx
-  stpcpy
+  spmi_ext_register_read
+  spmi_ext_register_readl
+  spmi_ext_register_write
+  spmi_ext_register_writel
+  spmi_register_read
+  spmi_register_write
+  spmi_register_zero_write

@@ -1832,6 +1832,10 @@ config HAVE_PERF_EVENTS
 	help
 	  See tools/perf/design.txt for details.
 
+config GUEST_PERF_EVENTS
+	bool
+	depends on HAVE_PERF_EVENTS
+
 config PERF_USE_VMALLOC
 	bool
 	help
@@ -2222,13 +2226,12 @@ config MODULE_SIG_PROTECT
 	bool "Android GKI module protection"
 	depends on MODULE_SIG && !MODULE_SIG_FORCE
 	help
-	  Enables Android GKI symbol and export protection support.
+	  Enables Android GKI symbol protection support.
 
 	  This modifies the behavior of the MODULE_SIG_FORCE as follows:
 	  - Allows Android GKI Modules signed using MODULE_SIG_ALL during build.
 	  - Allows other modules to load if they don't violate the access to
-	    Android GKI protected symbols and do not export the symbols already
-	    exported by the Android GKI modules. Loading will fail and return
+	    Android GKI protected symbols. Loading will fail and return
 	    -EACCES (Permission denied) if symbol access contidions are not met.
 
 config MODULE_SIG_ALL
@@ -2385,7 +2388,7 @@ config UNUSED_KSYMS_WHITELIST
 	  exported at all times, even in absence of in-tree users. The value to
 	  set here is the path to a text file containing the list of symbols,
 	  one per line. The path can be absolute, or relative to the kernel
-	  source tree.
+	  source or obj tree.
 
 endif # MODULES
 

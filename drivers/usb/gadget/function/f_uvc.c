@@ -539,16 +539,12 @@ uvc_copy_descriptors(struct uvc_device *uvc, enum usb_device_speed speed)
 	bytes = uvc_iad.bLength + uvc_control_intf.bLength
 		+ uvc_streaming_intf_alt0.bLength;
 
-	n_desc = 3;
-	if (uvc->enable_interrupt_ep) {
-		bytes += uvc_interrupt_ep.bLength + uvc_interrupt_cs_ep.bLength;
-		n_desc += 2;
-
-		if (speed == USB_SPEED_SUPER ||
-		    speed == USB_SPEED_SUPER_PLUS) {
-			bytes += uvc_ss_interrupt_comp.bLength;
-			n_desc += 1;
-		}
+	if (speed == USB_SPEED_SUPER ||
+	    speed == USB_SPEED_SUPER_PLUS) {
+		bytes += uvc_ss_control_comp.bLength;
+		n_desc = 6;
+	} else {
+		n_desc = 5;
 	}
 
 	for (src = (const struct usb_descriptor_header **)uvc_control_desc;
@@ -587,14 +583,10 @@ uvc_copy_descriptors(struct uvc_device *uvc, enum usb_device_speed speed)
 	uvc_control_header->bInCollection = 1;
 	uvc_control_header->baInterfaceNr[0] = uvc->streaming_intf;
 
-	if (uvc->enable_interrupt_ep) {
-		UVC_COPY_DESCRIPTOR(mem, dst, &uvc_interrupt_ep);
-		if (speed == USB_SPEED_SUPER ||
-		    speed == USB_SPEED_SUPER_PLUS)
-			UVC_COPY_DESCRIPTOR(mem, dst, &uvc_ss_interrupt_comp);
-
-		UVC_COPY_DESCRIPTOR(mem, dst, &uvc_interrupt_cs_ep);
-	}
+	UVC_COPY_DESCRIPTOR(mem, dst, &uvc_control_ep);
+	if (speed == USB_SPEED_SUPER
+	    || speed == USB_SPEED_SUPER_PLUS)
+		UVC_COPY_DESCRIPTOR(mem, dst, &uvc_ss_control_comp);
 
 	UVC_COPY_DESCRIPTOR(mem, dst, &uvc_streaming_intf_alt0);
 
@@ -687,7 +679,7 @@ uvc_function_bind(struct usb_configuration *c, struct usb_function *f)
 		uvc->interrupt_ep = ep;
 		uvc_control_intf.bNumEndpoints = 1;
 	}
-	uvc->enable_interrupt_ep = opts->enable_interrupt_ep;
+	uvc->control_ep = ep;
 
 	ep = usb_ep_autoconfig(cdev->gadget, &uvc_fs_streaming_ep);
 	if (!ep) {

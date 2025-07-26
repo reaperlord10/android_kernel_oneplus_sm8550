@@ -1157,7 +1157,6 @@
   __memcpy_fromio
   __memcpy_toio
   memdup_user
-  mem_encrypt_active
   memmove
   memory_read_from_buffer
   memparse
@@ -1843,9 +1842,6 @@
   srcu_notifier_chain_unregister
   sscanf
   __stack_chk_fail
-  stack_trace_save_tsk
-  start_backtrace
-  static_key_disable
   static_key_slow_dec
   static_key_slow_inc
   stop_machine
@@ -1985,6 +1981,7 @@
   __traceiter_android_vh_cpu_idle_exit
   __traceiter_android_vh_do_wake_up_sync
   __traceiter_android_vh_gic_set_affinity
+  __traceiter_android_rvh_gic_v3_set_affinity
   __traceiter_android_vh_ipi_stop
   __traceiter_android_vh_logbuf
   __traceiter_android_vh_logbuf_pr_cont
@@ -2057,6 +2054,7 @@
   __tracepoint_android_vh_cpu_idle_exit
   __tracepoint_android_vh_do_wake_up_sync
   __tracepoint_android_vh_gic_set_affinity
+  __tracepoint_android_rvh_gic_v3_set_affinity
   __tracepoint_android_vh_ipi_stop
   __tracepoint_android_vh_logbuf
   __tracepoint_android_vh_logbuf_pr_cont

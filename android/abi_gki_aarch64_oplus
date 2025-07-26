@@ -1,4 +1,5 @@
 [abi_symbol_list]
+<<<<<<< HEAD
   address_space_init_once
   add_timer
   alloc_anon_inode
@@ -406,11 +407,93 @@
   tcf_block_get
   tcf_block_put
   tcf_classify
+=======
+  blkdev_get_by_path
+  blkdev_issue_flush
+  cgroup_add_legacy_cftypes
+  cpufreq_unregister_governor
+  cpu_latency_qos_request_active
+  device_remove_bin_file
+  devm_nvmem_device_get
+  devres_destroy
+  do_exit
+  eventfd_ctx_fileget
+  file_write_and_wait_range
+  for_each_kernel_tracepoint
+  freq_qos_add_notifier
+  freq_qos_remove_notifier
+  generic_file_read_iter
+  generic_perform_write
+  generic_write_checks
+  get_each_dmabuf
+  get_option
+  get_random_u64
+  get_slabinfo
+  get_wchan
+  gpiod_to_chip
+  I_BDEV
+  iio_channel_get
+  iio_channel_release
+  in_egroup_p
+  ip6_local_out
+  ip6_route_me_harder
+  ip_route_me_harder
+  ipv6_find_hdr
+  ipv6_skip_exthdr
+  irq_work_queue_on
+  kernel_power_off
+  kmsg_dump_get_line
+  kset_create_and_add
+  kset_unregister
+  ktime_get_coarse_real_ts64
+  log_post_read_mmio
+  log_read_mmio
+  mem_cgroup_from_id
+  memory_cgrp_subsys
+  memory_cgrp_subsys_enabled_key
+  mmc_wait_for_cmd
+  name_to_dev_t
+  nf_ct_attach
+  nf_ct_delete
+  of_css
+  __of_get_address
+  of_get_parent
+  __page_mapcount
+  param_get_int
+  param_set_bool
+  pick_highest_pushable_task
+  register_kprobe
+  register_kretprobe
+  register_memory_notifier
+  register_tcf_proto_ops
+  regulator_count_voltages
+  regulator_get_voltage
+  remove_proc_subtree
+  rtc_read_alarm
+  rtc_set_alarm
+  sdio_memcpy_fromio
+  sdio_memcpy_toio
+  sdio_set_block_size
+  sdio_writeb_readb
+  send_sig
+  send_sig_info
+  set_next_entity
+  shrink_slab
+  si_swapinfo
+  __skb_checksum_complete
+  skb_store_bits
+  snd_pcm_hw_constraint_mask64
+  stack_trace_save
+  stack_trace_save_tsk
+  tasklist_lock
+  tcf_action_exec
+>>>>>>> aosp/android14-5.15-lts
   tcf_exts_destroy
   tcf_exts_dump
   tcf_exts_dump_stats
   tcf_exts_validate
   tcf_queue_work
+<<<<<<< HEAD
   tcp_cong_avoid_ai
   tcp_hashinfo
   time64_to_tm
@@ -437,10 +520,32 @@
   __traceiter_android_vh_binder_preset
   __traceiter_android_vh_binder_priority_skip
   __traceiter_android_vh_binder_proc_transaction
+=======
+  __trace_bprintk
+  __traceiter_android_rvh_check_preempt_tick
+  __traceiter_android_rvh_dequeue_entity
+  __traceiter_android_rvh_enqueue_entity
+  __traceiter_android_rvh_flush_task
+  __traceiter_android_rvh_pick_next_entity
+  __traceiter_android_rvh_place_entity
+  __traceiter_android_rvh_set_balance_anon_file_reclaim
+  __traceiter_android_rvh_try_to_wake_up
+  __traceiter_android_vh_account_task_time
+  __traceiter_android_vh_alloc_pages_slowpath
+  __traceiter_android_vh_alter_futex_plist_add
+  __traceiter_android_vh_alter_mutex_list_add
+  __traceiter_android_vh_alter_rwsem_list_add
+  __traceiter_android_vh_binder_priority_skip
+  __traceiter_android_vh_binder_free_proc
+  __traceiter_android_vh_binder_has_work_ilocked
+  __traceiter_android_vh_binder_looper_state_registered
+  __traceiter_android_vh_binder_preset
+>>>>>>> aosp/android14-5.15-lts
   __traceiter_android_vh_binder_proc_transaction_entry
   __traceiter_android_vh_binder_proc_transaction_finish
   __traceiter_android_vh_binder_read_done
   __traceiter_android_vh_binder_select_worklist_ilocked
+<<<<<<< HEAD
   __traceiter_android_vh_binder_select_special_worklist
   __traceiter_android_vh_binder_spawn_new_thread
   __traceiter_android_vh_binder_thread_read
@@ -476,12 +581,30 @@
   __traceiter_android_vh_exit_signal_whether_wake
   __traceiter_android_vh_free_task
   __traceiter_android_vh_freeze_whether_wake
+=======
+  __traceiter_android_vh_binder_thread_read
+  __traceiter_android_vh_binder_thread_release
+  __traceiter_android_vh_binder_wait_for_work
+  __traceiter_android_vh_build_sched_domains
+  __traceiter_android_vh_cgroup_set_task
+  __traceiter_android_vh_check_uninterruptible_tasks
+  __traceiter_android_vh_check_uninterruptible_tasks_dn
+  __traceiter_android_vh_cpufreq_fast_switch
+  __traceiter_android_vh_cpufreq_resolve_freq
+  __traceiter_android_vh_cpufreq_target
+  __traceiter_android_vh_do_futex
+  __traceiter_android_vh_do_send_sig_info
+  __traceiter_android_vh_drain_all_pages_bypass
+  __traceiter_android_vh_exit_signal
+  __traceiter_android_vh_free_task
+>>>>>>> aosp/android14-5.15-lts
   __traceiter_android_vh_futex_sleep_start
   __traceiter_android_vh_futex_wait_end
   __traceiter_android_vh_futex_wait_start
   __traceiter_android_vh_futex_wake_this
   __traceiter_android_vh_futex_wake_traverse_plist
   __traceiter_android_vh_futex_wake_up_q_finish
+<<<<<<< HEAD
   __traceiter_android_vh_handle_failed_page_trylock
   __traceiter_android_vh_irqtime_account_process_tick
   __traceiter_android_vh_killed_process
@@ -492,10 +615,16 @@
   __traceiter_android_vh_mark_page_accessed
   __traceiter_android_vh_mem_cgroup_alloc
   __traceiter_android_vh_adjust_alloc_flags
+=======
+  __traceiter_android_vh_irqtime_account_process_tick
+  __traceiter_android_vh_map_util_freq_new
+  __traceiter_android_vh_mem_cgroup_alloc
+>>>>>>> aosp/android14-5.15-lts
   __traceiter_android_vh_mem_cgroup_css_offline
   __traceiter_android_vh_mem_cgroup_css_online
   __traceiter_android_vh_mem_cgroup_free
   __traceiter_android_vh_mem_cgroup_id_remove
+<<<<<<< HEAD
   __traceiter_android_vh_meminfo_proc_show
   __traceiter_android_vh_modify_thermal_cpu_get_power
   __traceiter_android_vh_mutex_can_spin_on_owner
@@ -549,6 +678,28 @@
   __traceiter_net_dev_xmit
   __traceiter_netif_receive_skb
   __traceiter_netif_rx
+=======
+  __traceiter_android_vh_mutex_can_spin_on_owner
+  __traceiter_android_vh_mutex_opt_spin_finish
+  __traceiter_android_vh_mutex_opt_spin_start
+  __traceiter_android_vh_mutex_unlock_slowpath
+  __traceiter_android_vh_mutex_wait_finish
+  __traceiter_android_vh_mutex_wait_start
+  __traceiter_android_vh_page_referenced_check_bypass
+  __traceiter_android_vh_record_mutex_lock_starttime
+  __traceiter_android_vh_record_pcpu_rwsem_starttime
+  __traceiter_android_vh_record_rtmutex_lock_starttime
+  __traceiter_android_vh_record_rwsem_lock_starttime
+  __traceiter_android_vh_rwsem_can_spin_on_owner
+  __traceiter_android_vh_rwsem_opt_spin_finish
+  __traceiter_android_vh_rwsem_opt_spin_start
+  __traceiter_android_vh_rwsem_wake_finish
+  __traceiter_android_vh_rwsem_wake
+  __traceiter_android_vh_sched_stat_runtime_rt
+  __traceiter_android_vh_shrink_slab_bypass
+  __traceiter_android_vh_sync_txn_recvd
+  __traceiter_cpu_frequency_limits
+>>>>>>> aosp/android14-5.15-lts
   __traceiter_sched_stat_blocked
   __traceiter_sched_stat_iowait
   __traceiter_sched_stat_runtime
@@ -561,6 +712,7 @@
   __traceiter_android_vh_free_oem_binder_struct
   __traceiter_android_vh_binder_special_task
   __traceiter_android_vh_binder_free_buf
+<<<<<<< HEAD
   __traceiter_android_vh_binder_buffer_release
   __traceiter_android_vh_lru_gen_add_page_skip
   __traceiter_android_vh_lru_gen_del_page_skip
@@ -600,10 +752,30 @@
   __tracepoint_android_vh_binder_preset
   __tracepoint_android_vh_binder_priority_skip
   __tracepoint_android_vh_binder_proc_transaction
+=======
+  __tracepoint_android_rvh_check_preempt_tick
+  __tracepoint_android_rvh_dequeue_entity
+  __tracepoint_android_rvh_enqueue_entity
+  __tracepoint_android_rvh_flush_task
+  __tracepoint_android_rvh_pick_next_entity
+  __tracepoint_android_rvh_place_entity
+  __tracepoint_android_rvh_set_balance_anon_file_reclaim
+  __tracepoint_android_rvh_try_to_wake_up
+  __tracepoint_android_vh_account_task_time
+  __tracepoint_android_vh_alloc_pages_slowpath
+  __tracepoint_android_vh_alter_futex_plist_add
+  __tracepoint_android_vh_alter_mutex_list_add
+  __tracepoint_android_vh_alter_rwsem_list_add
+  __tracepoint_android_vh_binder_free_proc
+  __tracepoint_android_vh_binder_has_work_ilocked
+  __tracepoint_android_vh_binder_looper_state_registered
+  __tracepoint_android_vh_binder_preset
+>>>>>>> aosp/android14-5.15-lts
   __tracepoint_android_vh_binder_proc_transaction_entry
   __tracepoint_android_vh_binder_proc_transaction_finish
   __tracepoint_android_vh_binder_read_done
   __tracepoint_android_vh_binder_select_worklist_ilocked
+<<<<<<< HEAD
   __tracepoint_android_vh_binder_select_special_worklist
   __tracepoint_android_vh_binder_spawn_new_thread
   __tracepoint_android_vh_binder_thread_read
@@ -639,12 +811,31 @@
   __tracepoint_android_vh_exit_signal_whether_wake
   __tracepoint_android_vh_free_task
   __tracepoint_android_vh_freeze_whether_wake
+=======
+  __tracepoint_android_vh_binder_thread_read
+  __tracepoint_android_vh_binder_thread_release
+  __tracepoint_android_vh_binder_priority_skip
+  __tracepoint_android_vh_binder_wait_for_work
+  __tracepoint_android_vh_build_sched_domains
+  __tracepoint_android_vh_cgroup_set_task
+  __tracepoint_android_vh_check_uninterruptible_tasks
+  __tracepoint_android_vh_check_uninterruptible_tasks_dn
+  __tracepoint_android_vh_cpufreq_fast_switch
+  __tracepoint_android_vh_cpufreq_resolve_freq
+  __tracepoint_android_vh_cpufreq_target
+  __tracepoint_android_vh_do_futex
+  __tracepoint_android_vh_do_send_sig_info
+  __tracepoint_android_vh_drain_all_pages_bypass
+  __tracepoint_android_vh_exit_signal
+  __tracepoint_android_vh_free_task
+>>>>>>> aosp/android14-5.15-lts
   __tracepoint_android_vh_futex_sleep_start
   __tracepoint_android_vh_futex_wait_end
   __tracepoint_android_vh_futex_wait_start
   __tracepoint_android_vh_futex_wake_this
   __tracepoint_android_vh_futex_wake_traverse_plist
   __tracepoint_android_vh_futex_wake_up_q_finish
+<<<<<<< HEAD
   __tracepoint_android_vh_handle_failed_page_trylock
   __tracepoint_android_vh_irqtime_account_process_tick
   __tracepoint_android_vh_killed_process
@@ -655,10 +846,16 @@
   __tracepoint_android_vh_mark_page_accessed
   __tracepoint_android_vh_mem_cgroup_alloc
   __tracepoint_android_vh_adjust_alloc_flags
+=======
+  __tracepoint_android_vh_irqtime_account_process_tick
+  __tracepoint_android_vh_map_util_freq_new
+  __tracepoint_android_vh_mem_cgroup_alloc
+>>>>>>> aosp/android14-5.15-lts
   __tracepoint_android_vh_mem_cgroup_css_offline
   __tracepoint_android_vh_mem_cgroup_css_online
   __tracepoint_android_vh_mem_cgroup_free
   __tracepoint_android_vh_mem_cgroup_id_remove
+<<<<<<< HEAD
   __tracepoint_android_vh_meminfo_proc_show
   __tracepoint_android_vh_modify_thermal_cpu_get_power
   __tracepoint_android_vh_mutex_can_spin_on_owner
@@ -712,6 +909,29 @@
   __tracepoint_net_dev_xmit
   __tracepoint_netif_receive_skb
   __tracepoint_netif_rx
+=======
+  __tracepoint_android_vh_mutex_can_spin_on_owner
+  __tracepoint_android_vh_mutex_opt_spin_finish
+  __tracepoint_android_vh_mutex_opt_spin_start
+  __tracepoint_android_vh_mutex_unlock_slowpath
+  __tracepoint_android_vh_mutex_wait_finish
+  __tracepoint_android_vh_mutex_wait_start
+  __tracepoint_android_vh_page_referenced_check_bypass
+  __tracepoint_android_vh_record_mutex_lock_starttime
+  __tracepoint_android_vh_record_pcpu_rwsem_starttime
+  __tracepoint_android_vh_record_rtmutex_lock_starttime
+  __tracepoint_android_vh_record_rwsem_lock_starttime
+  __tracepoint_android_vh_rwsem_can_spin_on_owner
+  __tracepoint_android_vh_rwsem_opt_spin_finish
+  __tracepoint_android_vh_rwsem_opt_spin_start
+  __tracepoint_android_vh_rwsem_wake_finish
+  __tracepoint_android_vh_rwsem_wake
+  __tracepoint_android_vh_sched_stat_runtime_rt
+  __tracepoint_android_vh_shrink_slab_bypass
+  __tracepoint_android_vh_sync_txn_recvd
+  __tracepoint_cpu_frequency_limits
+  __trace_puts
+>>>>>>> aosp/android14-5.15-lts
   __tracepoint_sched_stat_blocked
   __tracepoint_sched_stat_iowait
   __tracepoint_sched_stat_runtime
@@ -724,6 +944,7 @@
   __tracepoint_android_vh_free_oem_binder_struct
   __tracepoint_android_vh_binder_special_task
   __tracepoint_android_vh_binder_free_buf
+<<<<<<< HEAD
   __tracepoint_android_vh_binder_buffer_release
   __tracepoint_android_vh_lru_gen_add_page_skip
   __tracepoint_android_vh_lru_gen_del_page_skip
@@ -778,3 +999,18 @@
   is_transparent_hugepage
   isolate_page
   reclaim_pages
+=======
+  try_to_free_mem_cgroup_pages
+  unregister_kprobe
+  unregister_kretprobe
+  unregister_memory_notifier
+  unregister_tcf_proto_ops
+  v4l2_subdev_call_wrappers
+  vfs_fsync_range
+  vmalloc_nr_pages
+  vm_zone_stat
+  wait_for_completion_io_timeout
+  wait_for_completion_killable_timeout
+  wakeup_source_remove
+  wq_worker_comm
+>>>>>>> aosp/android14-5.15-lts

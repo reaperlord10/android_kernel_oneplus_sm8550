@@ -184,8 +184,7 @@ static inline int rdev_change_beacon(struct cfg80211_registered_device *rdev,
 
 #ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 static inline int rdev_stop_ap(struct cfg80211_registered_device *rdev,
-			       struct net_device *dev,
-			       unsigned int link_id)
+			       struct net_device *dev, unsigned int link_id)
 {
 	int ret;
 	trace_rdev_stop_ap(&rdev->wiphy, dev, link_id);

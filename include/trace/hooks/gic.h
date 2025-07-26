@@ -9,6 +9,9 @@
 
 #include <trace/hooks/vendor_hooks.h>
 
+struct irq_data;
+struct gic_chip_data;
+
 #ifdef __GENKSYMS__
 #include <linux/cpumask.h>
 #include <linux/irq.h>

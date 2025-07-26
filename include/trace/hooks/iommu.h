@@ -8,11 +8,7 @@
 #define _TRACE_HOOK_IOMMU_H
 #include <trace/hooks/vendor_hooks.h>
 
-#include <linux/types.h>
-
-#ifdef __GENKSYMS__
-#include <linux/iova.h>
-#endif
+#include <trace/hooks/vendor_hooks.h>
 
 struct iova_domain;
 

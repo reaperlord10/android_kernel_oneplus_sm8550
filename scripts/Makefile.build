@@ -319,10 +319,6 @@ endif
 cmd_mod = printf '%s\n' $(call real-search, $*.o, .o, -objs -y -m) | \
 	$(AWK) '!x[$$0]++ { print("$(obj)/"$$0) }' > $@
 
-#ifdef OPLUS_FEATURE_CHG_BASIC
-	cmd_mod_lds = $(if $(KBUILD_LDS_MODULE_ATTACH), cat $(srctree)/$(src)/$(firstword $(KBUILD_LDS_MODULE_ATTACH)) > $(@:.mod=.lds))
-#endif
-
 $(obj)/%.mod: FORCE
 	$(call if_changed,mod)
 #ifdef OPLUS_FEATURE_CHG_BASIC

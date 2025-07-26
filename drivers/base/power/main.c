@@ -901,6 +901,8 @@ static void __device_resume(struct device *dev, pm_message_t state, bool async)
 	if (!dev->power.is_suspended)
 		goto Complete;
 
+	dev->power.is_suspended = false;
+
 	if (dev->power.direct_complete) {
 		/* Match the pm_runtime_disable() in __device_suspend(). */
 		pm_runtime_enable(dev);
@@ -956,7 +958,6 @@ static void __device_resume(struct device *dev, pm_message_t state, bool async)
 
  End:
 	error = dpm_run_callback(callback, dev, state, info);
-	dev->power.is_suspended = false;
 
 	device_unlock(dev);
 	dpm_watchdog_clear(&wd);
@@ -1232,8 +1233,8 @@ Run:
 	error = dpm_run_callback(callback, dev, state, info);
 	if (error) {
 		async_error = error;
-		log_suspend_abort_reason("Callback failed on %s in %pS returned %d",
-					 dev_name(dev), callback, error);
+		log_suspend_abort_reason("Device %s failed to %s noirq: error %d",
+					 dev_name(dev), pm_verb(state.event), error);
 		goto Complete;
 	}
 
@@ -1429,8 +1430,8 @@ Run:
 	error = dpm_run_callback(callback, dev, state, info);
 	if (error) {
 		async_error = error;
-		log_suspend_abort_reason("Callback failed on %s in %pS returned %d",
-					 dev_name(dev), callback, error);
+		log_suspend_abort_reason("Device %s failed to %s late: error %d",
+					 dev_name(dev), pm_verb(state.event), error);
 		goto Complete;
 	}
 	dpm_propagate_wakeup_to_parent(dev);
@@ -1708,8 +1709,8 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
 		dpm_propagate_wakeup_to_parent(dev);
 		dpm_clear_superiors_direct_complete(dev);
 	} else {
-		log_suspend_abort_reason("Callback failed on %s in %pS returned %d",
-					 dev_name(dev), callback, error);
+		log_suspend_abort_reason("Device %s failed to %s: error %d",
+					 dev_name(dev), pm_verb(state.event), error);
 	}
 
 	device_unlock(dev);

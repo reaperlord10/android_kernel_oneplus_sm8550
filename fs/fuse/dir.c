@@ -26,6 +26,8 @@
 
 #include "../internal.h"
 
+#include "../internal.h"
+
 static void fuse_advise_use_readdirplus(struct inode *dir)
 {
 	struct fuse_inode *fi = get_fuse_inode(dir);
@@ -409,7 +411,7 @@ static struct vfsmount *fuse_dentry_automount(struct path *path)
  * look up paths on its own. Instead, we handle the lookup as a special case
  * inside of the write request.
  */
-static void fuse_dentry_canonical_path(const struct path *path,
+static int fuse_dentry_canonical_path(const struct path *path,
 				       struct path *canonical_path)
 {
 	struct inode *inode = d_inode(path->dentry);
@@ -427,18 +429,13 @@ static void fuse_dentry_canonical_path(const struct path *path,
 			       fuse_canonical_path_backing,
 			       fuse_canonical_path_finalize, path,
 			       canonical_path);
-	if (fer.ret) {
-		if (IS_ERR(fer.result))
-			canonical_path->dentry = fer.result;
-		return;
-	}
+	if (fer.ret)
+		return PTR_ERR(fer.result);
 #endif
 
 	path_name = (char *)get_zeroed_page(GFP_KERNEL);
-	if (!path_name) {
-		canonical_path->dentry = ERR_PTR(-ENOMEM);
-		return;
-	}
+	if (!path_name)
+		return -ENOMEM;
 
 	args.opcode = FUSE_CANONICAL_PATH;
 	args.nodeid = get_node_id(inode);
@@ -452,16 +449,14 @@ static void fuse_dentry_canonical_path(const struct path *path,
 	err = fuse_simple_request(fm, &args);
 	free_page((unsigned long)path_name);
 	if (err > 0)
-		return;
-	if (err < 0) {
-		canonical_path->dentry = ERR_PTR(err);
-		return;
-	}
+		return 0;
+	if (err < 0)
+		return err;
 
 	canonical_path->dentry = path->dentry;
 	canonical_path->mnt = path->mnt;
 	path_get(canonical_path);
-	return;
+	return 0;
 }
 
 const struct dentry_operations fuse_dentry_operations = {

@@ -1931,6 +1931,7 @@ mwifiex_cfg80211_get_antenna(struct wiphy *wiphy, u32 *tx_ant, u32 *rx_ant)
 /* cfg80211 operation handler for stop ap.
  * Function stops BSS running at uAP interface.
  */
+<<<<<<< HEAD
 #ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 static int mwifiex_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *dev,
 				    unsigned int link_id)
@@ -1938,6 +1939,10 @@ static int mwifiex_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *dev,
 static int mwifiex_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *dev,
 				    struct cfg80211_ap_settings *settings)
 #endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
+=======
+static int mwifiex_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *dev,
+				    unsigned int link_id)
+>>>>>>> aosp/android14-5.15-lts
 {
 	struct mwifiex_private *priv = mwifiex_netdev_get_priv(dev);
 

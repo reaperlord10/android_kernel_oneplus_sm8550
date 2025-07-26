@@ -5,7 +5,7 @@
  * Copyright 2007-2009	Johannes Berg <johannes@sipsolutions.net>
  * Copyright 2013-2014  Intel Mobile Communications GmbH
  * Copyright 2017	Intel Deutschland GmbH
- * Copyright (C) 2018-20222 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  */
 #include <linux/export.h>
 #include <linux/bitops.h>
@@ -638,12 +638,14 @@ int ieee80211_data_to_8023_exthdr(struct sk_buff *skb, struct ethhdr *ehdr,
 	if (likely((!is_amsdu && ether_addr_equal(payload.hdr, rfc1042_header) &&
 		    tmp.h_proto != htons(ETH_P_AARP) &&
 		    tmp.h_proto != htons(ETH_P_IPX)) ||
-		   ether_addr_equal(payload.hdr, bridge_tunnel_header)))
+		   ether_addr_equal(payload.hdr, bridge_tunnel_header))) {
 		/* remove RFC1042 or Bridge-Tunnel encapsulation and
 		 * replace EtherType */
 		hdrlen += ETH_ALEN + 2;
-	else
+		skb_postpull_rcsum(skb, &payload, ETH_ALEN + 2);
+	} else {
 		tmp.h_proto = htons(skb->len - hdrlen);
+	}
 
 	pskb_pull(skb, hdrlen);
 
@@ -1060,7 +1062,7 @@ int cfg80211_change_iface(struct cfg80211_registered_device *rdev,
 		switch (otype) {
 		case NL80211_IFTYPE_AP:
 		case NL80211_IFTYPE_P2P_GO:
-			cfg80211_stop_ap(rdev, dev, -1, true, NULL);
+			cfg80211_stop_ap(rdev, dev, -1, true);
 			break;
 		case NL80211_IFTYPE_ADHOC:
 			cfg80211_leave_ibss(rdev, dev, false);
@@ -2478,7 +2480,7 @@ void cfg80211_remove_link(struct wireless_dev *wdev, unsigned int link_id)
 	switch (wdev->iftype) {
 	case NL80211_IFTYPE_AP:
 	case NL80211_IFTYPE_P2P_GO:
-		__cfg80211_stop_ap(rdev, wdev->netdev, link_id, true, NULL);
+		__cfg80211_stop_ap(rdev, wdev->netdev, link_id, true);
 		break;
 	default:
 		/* per-link not relevant */

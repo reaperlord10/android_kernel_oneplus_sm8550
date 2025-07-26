@@ -1367,16 +1367,6 @@ struct cfg80211_beacon_data {
 	struct cfg80211_he_bss_color he_bss_color;
 	bool he_bss_color_valid;
 
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-
 	ANDROID_KABI_RESERVE(1);
 };
 
@@ -1512,117 +1502,9 @@ struct cfg80211_ap_settings {
 	struct cfg80211_fils_discovery fils_discovery;
 	struct cfg80211_unsol_bcast_probe_resp unsol_bcast_probe_resp;
 	struct cfg80211_mbssid_config mbssid_config;
-#ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 	u16 punct_bitmap;
-#endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-	ANDROID_BACKPORT_RESERVED(5);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-	ANDROID_VENDOR_DATA(5);
 
 	ANDROID_KABI_RESERVE(1);
-};
-#else /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-/**
- * struct cfg80211_mlo_info - MLO settings
- *
- * Used to configure AP MLO Interface
- *
- * @num_mlo_links: number of MLO links.
- * @reconfig: whether reconfiguration or not
- * @mlo_link_ids: Array of link ids.
- * @mlo_mac_addrs: Array of MLO MAC address.
- */
-#define MAX_NUM_MLO_LINKS 16
-struct cfg80211_mlo_info {
-	u8 num_mlo_links;
-	bool reconfig;
-	u32 mlo_link_ids[MAX_NUM_MLO_LINKS];
-	struct mac_address mlo_mac_addrs[MAX_NUM_MLO_LINKS];
-};
-
-/**
- * struct cfg80211_ap_settings - AP configuration
- *
- * Used to configure an AP interface.
- *
- * @chandef: defines the channel to use
- * @beacon: beacon data
- * @beacon_interval: beacon interval
- * @dtim_period: DTIM period
- * @ssid: SSID to be used in the BSS (note: may be %NULL if not provided from
- *	user space)
- * @ssid_len: length of @ssid
- * @hidden_ssid: whether to hide the SSID in Beacon/Probe Response frames
- * @crypto: crypto settings
- * @privacy: the BSS uses privacy
- * @auth_type: Authentication type (algorithm)
- * @smps_mode: SMPS mode
- * @inactivity_timeout: time in seconds to determine station's inactivity.
- * @p2p_ctwindow: P2P CT Window
- * @p2p_opp_ps: P2P opportunistic PS
- * @acl: ACL configuration used by the drivers which has support for
- *	MAC address based access control
- * @pbss: If set, start as a PCP instead of AP. Relevant for DMG
- *	networks.
- * @beacon_rate: bitrate to be used for beacons
- * @ht_cap: HT capabilities (or %NULL if HT isn't enabled)
- * @vht_cap: VHT capabilities (or %NULL if VHT isn't enabled)
- * @he_cap: HE capabilities (or %NULL if HE isn't enabled)
- * @eht_oper: EHT operation IE (or %NULL if EHT isn't enabled)
- * @ht_required: stations must support HT
- * @vht_required: stations must support VHT
- * @twt_responder: Enable Target Wait Time
- * @he_required: stations must support HE
- * @sae_h2e_required: stations must support direct H2E technique in SAE
- * @flags: flags, as defined in enum cfg80211_ap_settings_flags
- * @he_obss_pd: OBSS Packet Detection settings
- * @fils_discovery: FILS discovery transmission parameters
- * @unsol_bcast_probe_resp: Unsolicited broadcast probe response parameters
- * @mbssid_config: AP settings for multiple bssid
- * @mlo_info: MLO settings
- */
-struct cfg80211_ap_settings {
-	struct cfg80211_chan_def chandef;
-
-	struct cfg80211_beacon_data beacon;
-
-	int beacon_interval, dtim_period;
-	const u8 *ssid;
-	size_t ssid_len;
-	enum nl80211_hidden_ssid hidden_ssid;
-	struct cfg80211_crypto_settings crypto;
-	bool privacy;
-	enum nl80211_auth_type auth_type;
-	enum nl80211_smps_mode smps_mode;
-	int inactivity_timeout;
-	u8 p2p_ctwindow;
-	bool p2p_opp_ps;
-	const struct cfg80211_acl_data *acl;
-	bool pbss;
-	struct cfg80211_bitrate_mask beacon_rate;
-
-	const struct ieee80211_ht_cap *ht_cap;
-	const struct ieee80211_vht_cap *vht_cap;
-	const struct ieee80211_he_cap_elem *he_cap;
-	const struct ieee80211_he_operation *he_oper;
-	bool ht_required, vht_required, he_required, sae_h2e_required;
-	bool twt_responder;
-	u32 flags;
-	struct ieee80211_he_obss_pd he_obss_pd;
-	struct cfg80211_fils_discovery fils_discovery;
-	struct cfg80211_unsol_bcast_probe_resp unsol_bcast_probe_resp;
-	struct cfg80211_mbssid_config mbssid_config;
-	const struct ieee80211_eht_cap_elem *eht_cap;
-	struct cfg80211_mlo_info mlo_info;
 };
 #endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
 
@@ -1656,15 +1538,7 @@ struct cfg80211_csa_settings {
 	bool radar_required;
 	bool block_tx;
 	u8 count;
-#ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 	u16 punct_bitmap;
-#endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
 
 	ANDROID_KABI_RESERVE(1);
 };
@@ -1804,7 +1678,6 @@ struct link_station_del_parameters {
 	u32 link_id;
 };
 
-#ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 /**
  * struct station_parameters - station parameters
  *
@@ -1865,90 +1738,7 @@ struct station_parameters {
 	u16 airtime_weight;
 	struct link_station_parameters link_sta_params;
 
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-
 	ANDROID_KABI_RESERVE(1);
-};
-#else /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-/**
- * struct station_parameters - station parameters
- *
- * Used to change and create a new station.
- *
- * @vlan: vlan interface station should belong to
- * @supported_rates: supported rates in IEEE 802.11 format
- *	(or NULL for no change)
- * @supported_rates_len: number of supported rates
- * @sta_flags_mask: station flags that changed
- *	(bitmask of BIT(%NL80211_STA_FLAG_...))
- * @sta_flags_set: station flags values
- *	(bitmask of BIT(%NL80211_STA_FLAG_...))
- * @listen_interval: listen interval or -1 for no change
- * @aid: AID or zero for no change
- * @vlan_id: VLAN ID for station (if nonzero)
- * @peer_aid: mesh peer AID or zero for no change
- * @plink_action: plink action to take
- * @plink_state: set the peer link state for a station
- * @ht_capa: HT capabilities of station
- * @vht_capa: VHT capabilities of station
- * @uapsd_queues: bitmap of queues configured for uapsd. same format
- *	as the AC bitmap in the QoS info field
- * @max_sp: max Service Period. same format as the MAX_SP in the
- *	QoS info field (but already shifted down)
- * @sta_modify_mask: bitmap indicating which parameters changed
- *	(for those that don't have a natural "no change" value),
- *	see &enum station_parameters_apply_mask
- * @local_pm: local link-specific mesh power save mode (no change when set
- *	to unknown)
- * @capability: station capability
- * @ext_capab: extended capabilities of the station
- * @ext_capab_len: number of extended capabilities
- * @supported_channels: supported channels in IEEE 802.11 format
- * @supported_channels_len: number of supported channels
- * @supported_oper_classes: supported oper classes in IEEE 802.11 format
- * @supported_oper_classes_len: number of supported operating classes
- * @opmode_notif: operating mode field from Operating Mode Notification
- * @opmode_notif_used: information if operating mode field is used
- * @support_p2p_ps: information if station supports P2P PS mechanism
- * @he_capa: HE capabilities of station
- * @he_capa_len: the length of the HE capabilities
- * @airtime_weight: airtime scheduler weight for this station
- * @txpwr: transmit power for an associated station
- * @he_6ghz_capa: HE 6 GHz Band capabilities of station
- * @eht_capa: EHT capabilities of station
- * @eht_capa_len: the length of the EHT capabilities
- */
-struct station_parameters {
-	struct net_device *vlan;
-	u32 sta_flags_mask, sta_flags_set;
-	u32 sta_modify_mask;
-	int listen_interval;
-	u16 aid;
-	u16 vlan_id;
-	u16 peer_aid;
-	u8 plink_action;
-	u8 plink_state;
-	u8 uapsd_queues;
-	u8 max_sp;
-	enum nl80211_mesh_power_mode local_pm;
-	u16 capability;
-	const u8 *ext_capab;
-	u8 ext_capab_len;
-	const u8 *supported_channels;
-	u8 supported_channels_len;
-	const u8 *supported_oper_classes;
-	u8 supported_oper_classes_len;
-	int support_p2p_ps;
-	u16 airtime_weight;
-	struct link_station_parameters link_sta_params;
 };
 #endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
 
@@ -3920,12 +3710,6 @@ struct cfg80211_mgmt_tx_params {
 	int n_csa_offsets;
 	const u16 *csa_offsets;
 	int link_id;
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
 };
 
 /**
@@ -4876,13 +4660,8 @@ struct cfg80211_ops {
 			    struct cfg80211_ap_settings *settings);
 	int	(*change_beacon)(struct wiphy *wiphy, struct net_device *dev,
 				 struct cfg80211_beacon_data *info);
-#ifndef CFG80211_PROP_MULTI_LINK_SUPPORT
 	int	(*stop_ap)(struct wiphy *wiphy, struct net_device *dev,
 			   unsigned int link_id);
-#else /* CFG80211_PROP_MULTI_LINK_SUPPORT */
-	int	(*stop_ap)(struct wiphy *wiphy, struct net_device *dev,
-			   struct cfg80211_ap_settings *settings);
-#endif /* CFG80211_PROP_MULTI_LINK_SUPPORT */
 
 
 	int	(*add_station)(struct wiphy *wiphy, struct net_device *dev,
@@ -5185,18 +4964,6 @@ struct cfg80211_ops {
 	int	(*del_link_station)(struct wiphy *wiphy, struct net_device *dev,
 				    struct link_station_del_parameters *params);
 
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-	ANDROID_BACKPORT_RESERVED(5);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-	ANDROID_VENDOR_DATA(5);
-
 	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
 	ANDROID_KABI_RESERVE(3);
@@ -5256,7 +5023,6 @@ struct cfg80211_ops {
  *	in order to not have them reachable in normal drivers, until we have
  *	complete feature/interface combinations/etc. advertisement. No driver
  *	should set this flag for now.
- * @WIPHY_FLAG_SUPPORTS_EXT_KCK_32: The device supports 32-byte KCK keys.
  */
 enum wiphy_flags {
 	WIPHY_FLAG_SUPPORTS_EXT_KEK_KCK		= BIT(0),
@@ -5601,12 +5367,16 @@ struct wiphy_vendor_command {
  *	802.11-2012 8.4.2.29 for the defined fields.
  * @extended_capabilities_mask: mask of the valid values
  * @extended_capabilities_len: length of the extended capabilities
+ * @eml_capabilities: EML capabilities (for MLO)
+ * @mld_capa_and_ops: MLD capabilities and operations (for MLO)
  */
 struct wiphy_iftype_ext_capab {
 	enum nl80211_iftype iftype;
 	const u8 *extended_capabilities;
 	const u8 *extended_capabilities_mask;
 	u8 extended_capabilities_len;
+	u16 eml_capabilities;
+	u16 mld_capa_and_ops;
 };
 
 /**
@@ -5616,19 +5386,6 @@ struct wiphy_iftype_ext_capab {
  */
 const struct wiphy_iftype_ext_capab *
 cfg80211_get_iftype_ext_capa(struct wiphy *wiphy, enum nl80211_iftype type);
-
-/**
- * struct wiphy_iftype_ext_capab2 - backported extended capabilities per
- *	interface type
- * @iftype: interface type
- * @eml_capabilities: EML capabilities (for MLO)
- * @mld_capa_and_ops: MLD capabilities and operations (for MLO)
- */
-struct wiphy_iftype_ext_capab2 {
-	enum nl80211_iftype iftype;
-	u16 eml_capabilities;
-	u16 mld_capa_and_ops;
-};
 
 /**
  * struct cfg80211_pmsr_capabilities - cfg80211 peer measurement capabilities
@@ -5908,7 +5665,6 @@ struct wiphy_backport {
  *	NL80211_MAX_NR_AKM_SUITES in order to avoid compatibility issues with
  *	legacy userspace and maximum allowed value is
  *	CFG80211_MAX_NUM_AKM_SUITES.
- * @backport: backported wiphy information.
  */
 struct wiphy {
 	struct mutex mtx;
@@ -6056,30 +5812,6 @@ struct wiphy {
 	u8 mbssid_max_interfaces;
 	u8 ema_max_profile_periodicity;
 	u16 max_num_akm_suites;
-
-	/* Enabled with bug 253289327 */
-	ANDROID_BACKPORT_RESERVED_USE(1, const struct wiphy_backport *backport);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-	ANDROID_BACKPORT_RESERVED(5);
-	ANDROID_BACKPORT_RESERVED(6);
-	ANDROID_BACKPORT_RESERVED(7);
-	ANDROID_BACKPORT_RESERVED(8);
-	ANDROID_BACKPORT_RESERVED(9);
-	ANDROID_BACKPORT_RESERVED(10);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-	ANDROID_VENDOR_DATA(5);
-	ANDROID_VENDOR_DATA(6);
-	ANDROID_VENDOR_DATA(7);
-	ANDROID_VENDOR_DATA(8);
-	ANDROID_VENDOR_DATA(9);
-	ANDROID_VENDOR_DATA(10);
-
 
 	ANDROID_KABI_RESERVE(1);
 
@@ -6476,22 +6208,6 @@ struct wireless_dev {
 		};
 	} links[IEEE80211_MLD_MAX_NUM_LINKS];
 	u16 valid_links;
-
-#ifdef CFG80211_PROP_MULTI_LINK_SUPPORT
-	u8 mld_address[ETH_ALEN] __aligned(sizeof(u16));
-#endif
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-	ANDROID_BACKPORT_RESERVED(5);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
-	ANDROID_VENDOR_DATA(5);
 
 	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
@@ -7577,8 +7293,6 @@ void cfg80211_auth_timeout(struct net_device *dev, const u8 *addr);
  * @ap_mld_addr: AP MLD address (in case of MLO)
  * @links: per-link information indexed by link ID, use links[0] for
  *	non-MLO connections
- * @links.status: Set this (along with a BSS pointer) for links that
- *	were rejected by the AP.
  */
 struct cfg80211_rx_assoc_resp {
 	const u8 *buf;
@@ -7590,7 +7304,6 @@ struct cfg80211_rx_assoc_resp {
 	struct {
 		const u8 *addr;
 		struct cfg80211_bss *bss;
-		u16 status;
 	} links[IEEE80211_MLD_MAX_NUM_LINKS];
 };
 
@@ -8107,9 +7820,6 @@ struct cfg80211_fils_resp_params {
  *	if the bss is expired during the connection, esp. for those drivers
  *	implementing connect op. Only one parameter among @bssid and @bss needs
  *	to be specified.
- * @links.status: per-link status code, to report a status code that's not
- *	%WLAN_STATUS_SUCCESS for a given link, it must also be in the
- *	@valid_links bitmap and may have a BSS pointer (which is then released)
  */
 struct cfg80211_connect_resp_params {
 	int status;
@@ -8126,18 +7836,7 @@ struct cfg80211_connect_resp_params {
 		const u8 *addr;
 		const u8 *bssid;
 		struct cfg80211_bss *bss;
-		u16 status;
 	} links[IEEE80211_MLD_MAX_NUM_LINKS];
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
 };
 
 /**
@@ -8313,16 +8012,6 @@ struct cfg80211_roam_info {
 		struct ieee80211_channel *channel;
 		struct cfg80211_bss *bss;
 	} links[IEEE80211_MLD_MAX_NUM_LINKS];
-
-	ANDROID_BACKPORT_RESERVED(1);
-	ANDROID_BACKPORT_RESERVED(2);
-	ANDROID_BACKPORT_RESERVED(3);
-	ANDROID_BACKPORT_RESERVED(4);
-
-	ANDROID_VENDOR_DATA(1);
-	ANDROID_VENDOR_DATA(2);
-	ANDROID_VENDOR_DATA(3);
-	ANDROID_VENDOR_DATA(4);
 };
 
 /**

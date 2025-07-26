@@ -452,10 +452,10 @@ DECLARE_EVENT_CLASS(key_handle,
 		__entry->pairwise = pairwise;
 	),
 	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", link_id: %d, "
-		  "key_index: %u, pairwise: %s, mac addr: %pM",
+		  "key_index: %u, pairwise: %s, mac addr: " MAC_PR_FMT,
 		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->link_id,
 		  __entry->key_index, BOOL_TO_STR(__entry->pairwise),
-		  __entry->mac_addr)
+		  MAC_PR_ARG(mac_addr))
 );
 
 DEFINE_EVENT(key_handle, rdev_get_key,
@@ -494,10 +494,10 @@ TRACE_EVENT(rdev_add_key,
 	),
 	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", link_id: %d, "
 		  "key_index: %u, mode: %u, pairwise: %s, "
-		  "mac addr: %pM",
+		  "mac addr: " MAC_PR_FMT,
 		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->link_id,
 		  __entry->key_index, __entry->mode,
-		  BOOL_TO_STR(__entry->pairwise), __entry->mac_addr)
+		  BOOL_TO_STR(__entry->pairwise), MAC_PR_ARG(mac_addr))
 );
 
 TRACE_EVENT(rdev_set_default_key,
@@ -1660,9 +1660,9 @@ TRACE_EVENT(rdev_set_bitrate_mask,
 		__entry->link_id = link_id;
 		MAC_ASSIGN(peer, peer);
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", link_id: %d, peer: %pM",
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", link_id: %d, peer: " MAC_PR_FMT,
 		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->link_id,
-		  __entry->peer)
+		  MAC_PR_ARG(peer))
 );
 
 TRACE_EVENT(rdev_update_mgmt_frame_registrations,
@@ -2047,9 +2047,9 @@ TRACE_EVENT(rdev_tx_control_port,
 		__entry->unencrypted = unencrypted;
 		__entry->link_id = link_id;
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", %pM,"
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", " MAC_PR_FMT ","
 		  " proto: 0x%x, unencrypted: %s, link: %d",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->dest,
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(dest),
 		  be16_to_cpu(__entry->proto),
 		  BOOL_TO_STR(__entry->unencrypted),
 		  __entry->link_id)
@@ -2719,8 +2719,8 @@ TRACE_EVENT(rdev_update_owe_info,
 			   __entry->status = owe_info->status;
 			   memcpy(__get_dynamic_array(ie),
 				  owe_info->ie, owe_info->ie_len);),
-	    TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: %pM"
-		  " status %d", WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->peer,
+	    TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: " MAC_PR_FMT
+		  " status %d", WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(peer),
 		  __entry->status)
 );
 
@@ -2738,8 +2738,8 @@ TRACE_EVENT(rdev_probe_mesh_link,
 		NETDEV_ASSIGN;
 		MAC_ASSIGN(dest, dest);
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", %pM",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->dest)
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", " MAC_PR_FMT,
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(dest))
 );
 
 TRACE_EVENT(rdev_set_tid_config,
@@ -2756,8 +2756,8 @@ TRACE_EVENT(rdev_set_tid_config,
 		NETDEV_ASSIGN;
 		MAC_ASSIGN(peer, tid_conf->peer);
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: %pM",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->peer)
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: " MAC_PR_FMT,
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(peer))
 );
 
 TRACE_EVENT(rdev_reset_tid_config,
@@ -2776,8 +2776,8 @@ TRACE_EVENT(rdev_reset_tid_config,
 		MAC_ASSIGN(peer, peer);
 		__entry->tids = tids;
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: %pM, tids: 0x%x",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->peer, __entry->tids)
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: " MAC_PR_FMT ", tids: 0x%x",
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(peer), __entry->tids)
 );
 
 TRACE_EVENT(rdev_set_sar_specs,
@@ -2919,8 +2919,8 @@ TRACE_EVENT(cfg80211_send_rx_assoc,
 		MAC_ASSIGN(ap_addr,
 			   data->ap_mld_addr ?: data->links[0].bss->bssid);
 	),
-	TP_printk(NETDEV_PR_FMT ", %pM",
-		  NETDEV_PR_ARG, __entry->ap_addr)
+	TP_printk(NETDEV_PR_FMT ", " MAC_PR_FMT,
+		  NETDEV_PR_ARG, MAC_PR_ARG(ap_addr))
 );
 
 DECLARE_EVENT_CLASS(netdev_frame_event,
@@ -3003,8 +3003,8 @@ TRACE_EVENT(cfg80211_send_assoc_failure,
 		MAC_ASSIGN(ap_addr, data->ap_mld_addr ?: data->bss[0]->bssid);
 		__entry->timeout = data->timeout;
 	),
-	TP_printk(NETDEV_PR_FMT ", mac: %pM, timeout: %d",
-		  NETDEV_PR_ARG, __entry->ap_addr, __entry->timeout)
+	TP_printk(NETDEV_PR_FMT ", mac: " MAC_PR_FMT ", timeout: %d",
+		  NETDEV_PR_ARG, MAC_PR_ARG(ap_addr), __entry->timeout)
 );
 
 TRACE_EVENT(cfg80211_michael_mic_failure,
@@ -3759,30 +3759,20 @@ TRACE_EVENT(cfg80211_pmsr_complete,
 );
 
 TRACE_EVENT(cfg80211_update_owe_info_event,
-	TP_PROTO(struct wiphy *wiphy, struct net_device *netdev,
-		 struct cfg80211_update_owe_info *owe_info),
-	TP_ARGS(wiphy, netdev, owe_info),
-	TP_STRUCT__entry(
-		WIPHY_ENTRY
-		NETDEV_ENTRY
-		MAC_ENTRY(peer)
-		__dynamic_array(u8, ie, owe_info->ie_len)
-		__field(int, assoc_link_id)
-		MAC_ENTRY(peer_mld_addr)
-	),
-	TP_fast_assign(
-		WIPHY_ASSIGN;
-		NETDEV_ASSIGN;
-		MAC_ASSIGN(peer, owe_info->peer);
-		memcpy(__get_dynamic_array(ie), owe_info->ie,
-		       owe_info->ie_len);
-		__entry->assoc_link_id = owe_info->assoc_link_id;
-		MAC_ASSIGN(peer_mld_addr, owe_info->peer_mld_addr);
-	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: %pM,"
-	          " assoc_link_id: %d, peer_mld_addr: %pM",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->peer,
-		  __entry->assoc_link_id, __entry->peer_mld_addr)
+	    TP_PROTO(struct wiphy *wiphy, struct net_device *netdev,
+		     struct cfg80211_update_owe_info *owe_info),
+	    TP_ARGS(wiphy, netdev, owe_info),
+	    TP_STRUCT__entry(WIPHY_ENTRY
+			     NETDEV_ENTRY
+			     MAC_ENTRY(peer)
+			     __dynamic_array(u8, ie, owe_info->ie_len)),
+	    TP_fast_assign(WIPHY_ASSIGN;
+			   NETDEV_ASSIGN;
+			   MAC_ASSIGN(peer, owe_info->peer);
+			   memcpy(__get_dynamic_array(ie), owe_info->ie,
+				  owe_info->ie_len);),
+	    TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", peer: " MAC_PR_FMT,
+		      WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(peer))
 );
 
 TRACE_EVENT(cfg80211_bss_color_notify,
@@ -3820,8 +3810,8 @@ TRACE_EVENT(cfg80211_assoc_comeback,
 		MAC_ASSIGN(ap_addr, ap_addr);
 		__entry->timeout = timeout;
 	),
-	TP_printk(WDEV_PR_FMT ", %pM, timeout: %u TUs",
-		  WDEV_PR_ARG, __entry->ap_addr, __entry->timeout)
+	TP_printk(WDEV_PR_FMT ", " MAC_PR_FMT ", timeout: %u TUs",
+		  WDEV_PR_ARG, MAC_PR_ARG(ap_addr), __entry->timeout)
 );
 
 DECLARE_EVENT_CLASS(link_station_add_mod,
@@ -3879,10 +3869,10 @@ DECLARE_EVENT_CLASS(link_station_add_mod,
 			memcpy(__get_dynamic_array(eht_capa), params->eht_capa,
 			       params->eht_capa_len);
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", station mac: %pM"
-		  ", link mac: %pM, link id: %u",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->mld_mac,
-		  __entry->link_mac, __entry->link_id)
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", station mac: " MAC_PR_FMT
+		  ", link mac: " MAC_PR_FMT ", link id: %u",
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(mld_mac),
+		  MAC_PR_ARG(link_mac), __entry->link_id)
 );
 
 DEFINE_EVENT(link_station_add_mod, rdev_add_link_station,
@@ -3915,9 +3905,9 @@ TRACE_EVENT(rdev_del_link_station,
 			memcpy(__entry->mld_mac, params->mld_mac, 6);
 		__entry->link_id = params->link_id;
 	),
-	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", station mac: %pM"
+	TP_printk(WIPHY_PR_FMT ", " NETDEV_PR_FMT ", station mac: " MAC_PR_FMT
 		  ", link id: %u",
-		  WIPHY_PR_ARG, NETDEV_PR_ARG, __entry->mld_mac,
+		  WIPHY_PR_ARG, NETDEV_PR_ARG, MAC_PR_ARG(mld_mac),
 		  __entry->link_id)
 );
 

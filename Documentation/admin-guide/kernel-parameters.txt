@@ -2468,6 +2468,19 @@
 			for all guests.
 			Default is 1 (enabled) if in 64-bit or 32-bit PAE mode.
 
+	kvm-arm.force_nc
+			[KVM,ARM,ANDROID_ARM64_WORKAROUND_DMA_BEYOND_POC]
+
+			Enable hypercalls to remap host pages as normal
+			non-cacheable at stage-2 and issue these hypercalls
+			when installing non-cacheable ptes at stage-1. This
+			is useful to work around coherency issues on systems
+			with DMA peripherals integrated beyond the Point of
+			Coherency (PoC).
+
+			This option only applies when booting with
+			kvm-arm.mode=protected.
+
 	kvm-arm.mode=
 			[KVM,ARM] Select one of KVM/arm64's modes of operation.
 
@@ -2477,11 +2490,20 @@
 			      protected guests.
 
 			protected: nVHE-based mode with support for guests whose
-				   state is kept private from the host.
+				   state is kept private from the host. See
+				   Documentation/virt/kvm/arm/pkvm.rst for more
+				   information about this mode of operation.
 
 			Defaults to VHE/nVHE based on hardware support. Setting
 			mode to "protected" will disable kexec and hibernation
 			for the host.
+
+	kvm-arm.protected_modules=
+			[KVM,ARM] List of pKVM modules to load before the host
+			is deprevileged.
+
+			This option only applies when booting with
+			kvm-arm.mode=protected.
 
 	kvm-arm.vgic_v3_group0_trap=
 			[KVM,ARM] Trap guest accesses to GICv3 group-0
@@ -3131,6 +3153,7 @@
 					       spectre_bhi=off [X86]
 					       spectre_v2_user=off [X86]
 					       ssbd=force-off [ARM64]
+					       nospectre_bhb [ARM64]
 					       tsx_async_abort=off [X86]
 
 				Exceptions:
@@ -3551,6 +3574,10 @@
 			the Spectre variant 2 (indirect branch prediction)
 			vulnerability. System may allow data leaks with this
 			option.
+
+	nospectre_bhb	[ARM64] Disable all mitigations for Spectre-BHB (branch
+			history injection) vulnerability. System may allow data leaks
+			with this option.
 
 	nospec_store_bypass_disable
 			[HW] Disable all mitigations for the Speculative Store Bypass vulnerability
@@ -5491,8 +5518,6 @@
 
 			Selecting 'on' will also enable the mitigation
 			against user space to user space task attacks.
-			Selecting specific mitigation does not force enable
-			user mitigations.
 
 			Selecting 'off' will disable both the kernel and
 			the user space protections.
@@ -6032,6 +6057,19 @@
 			- "default"
 			If not specified, "default" is used. In this case,
 			the RNG's choice is left to each individual trust source.
+
+	tsa=		[X86] Control mitigation for Transient Scheduler
+			Attacks on AMD CPUs. Search the following in your
+			favourite search engine for more details:
+
+			"Technical guidance for mitigating transient scheduler
+			attacks".
+
+			off		- disable the mitigation
+			on		- enable the mitigation (default)
+			user		- mitigate only user/kernel transitions
+			vm		- mitigate only guest/host transitions
+
 
 	tsc=		Disable clocksource stability checks for TSC.
 			Format: <string>

@@ -632,7 +632,7 @@ struct hid_device {							/* device report descriptor */
 	spinlock_t  debug_list_lock;
 	wait_queue_head_t debug_wait;
 
-	ANDROID_KABI_USE(1, struct { u32 initial_quirks; u32 padding; });
+	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
 };
 
@@ -679,8 +679,9 @@ struct hid_descriptor {
 	__le16 bcdHID;
 	__u8  bCountryCode;
 	__u8  bNumDescriptors;
+	struct hid_class_descriptor rpt_desc;
 
-	struct hid_class_descriptor desc[1];
+	struct hid_class_descriptor opt_descs[];
 } __attribute__ ((packed));
 
 #define HID_DEVICE(b, g, ven, prod)					\
