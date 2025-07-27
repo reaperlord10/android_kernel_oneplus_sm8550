@@ -682,3 +682,5 @@ void gic_dist_wait_for_rwp(void);
 #endif
 
 #endif
+
+#endif /* __LINUX_IRQCHIP_ARM_GIC_V3_H */

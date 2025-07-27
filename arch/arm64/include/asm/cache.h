@@ -2,6 +2,7 @@
 /*
  * Copyright (C) 2012 ARM Ltd.
  */
+#include <asm/mte-def.h>
 #ifndef __ASM_CACHE_H
 #define __ASM_CACHE_H
 
