@@ -339,10 +339,8 @@ enum lruvec_flags {
  * rest of generations, if they exist, are considered inactive. See
  * lru_gen_is_active().
  *
-<<<<<<< HEAD
  * PG_active is always cleared while a page is on one of lrugen->lists[] so that
  * the aging needs not to worry about it. And it's set again when a page
-=======
  * See lru_gen_add_page() and lru_gen_del_page().
  *
  * number of categories of the active/inactive LRU when keeping track of
@@ -381,8 +379,6 @@ struct page_vma_mapped_walk;
 
 #define LRU_GEN_MASK		((BIT(LRU_GEN_WIDTH) - 1) << LRU_GEN_PGOFF)
 #define LRU_REFS_MASK		((BIT(LRU_REFS_WIDTH) - 1) << LRU_REFS_PGOFF)
-<<<<<<< HEAD
-=======
 
 /* see the comment on MEMCG_NR_GENS */
 enum {
@@ -392,7 +388,6 @@ enum {
 	MEMCG_LRU_OLD,
 	MEMCG_LRU_YOUNG,
 };
->>>>>>> aosp/android14-5.15-lts
 
 #ifdef CONFIG_LRU_GEN
 
@@ -439,15 +434,9 @@ struct lru_gen_page {
 	/* the birth time of each generation in jiffies */
 	unsigned long timestamps[MAX_NR_GENS];
 	/* the multi-gen LRU lists, lazily sorted on eviction */
-<<<<<<< HEAD
-	struct list_head lists[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
-	/* the multi-gen LRU sizes, eventually consistent */
-	unsigned long nr_pages[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
-=======
 	struct list_head pages[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
 	/* the multi-gen LRU sizes, eventually consistent */
 	long nr_pages[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
->>>>>>> aosp/android14-5.15-lts
 	/* the exponential moving average of refaulted */
 	unsigned long avg_refaulted[ANON_AND_FILE][MAX_NR_TIERS];
 	/* the exponential moving average of evicted+protected */
@@ -492,22 +481,12 @@ struct lru_gen_mm_state {
 	struct list_head *head;
 	/* where the last iteration ended before */
 	struct list_head *tail;
-<<<<<<< HEAD
-	/* Unused - keep for ABI compatiiblity */
-	struct wait_queue_head wait;
-=======
->>>>>>> aosp/android14-5.15-lts
 	/* Bloom filters flip after each iteration */
 	unsigned long *filters[NR_BLOOM_FILTERS];
 	/* the mm stats for debugging */
 	unsigned long stats[NR_HIST_GENS][NR_MM_STATS];
-<<<<<<< HEAD
-	/* Unused - keep for ABI compatiiblity */
-	int nr_walkers;
-=======
 
 	ANDROID_KABI_RESERVE(1);
->>>>>>> aosp/android14-5.15-lts
 };
 
 struct lru_gen_mm_walk {
@@ -517,11 +496,6 @@ struct lru_gen_mm_walk {
 	unsigned long max_seq;
 	/* the next address within an mm to scan */
 	unsigned long next_addr;
-<<<<<<< HEAD
-	/* Unused -- for ABI compatibility */
-	unsigned long bitmap[BITS_TO_LONGS(MIN_LRU_BATCH)];
-=======
->>>>>>> aosp/android14-5.15-lts
 	/* to batch promoted pages */
 	int nr_pages[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
 	/* to batch the mm stats */
@@ -688,11 +662,8 @@ struct lruvec {
 	struct pglist_data *pgdat;
 #endif
 	ANDROID_VENDOR_DATA(1);
-<<<<<<< HEAD
-=======
 	ANDROID_KABI_RESERVE(1);
 	ANDROID_KABI_RESERVE(2);
->>>>>>> aosp/android14-5.15-lts
 };
 
 /* Isolate unmapped pages */
